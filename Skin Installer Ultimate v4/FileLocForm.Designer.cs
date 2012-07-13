@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.origLoc = new System.Windows.Forms.Label();
-            this.badFileName = new System.Windows.Forms.Label();
+            this.fileName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.text1 = new System.Windows.Forms.Label();
             this.text2 = new System.Windows.Forms.Label();
@@ -42,18 +42,18 @@
             this.origLoc.AutoSize = true;
             this.origLoc.Location = new System.Drawing.Point(8, 54);
             this.origLoc.Name = "origLoc";
-            this.origLoc.Size = new System.Drawing.Size(35, 13);
+            this.origLoc.Size = new System.Drawing.Size(27, 13);
             this.origLoc.TabIndex = 11;
-            this.origLoc.Text = "label2";
+            this.origLoc.Text = "asdf";
             // 
-            // badFileName
+            // fileName
             // 
-            this.badFileName.AutoSize = true;
-            this.badFileName.Location = new System.Drawing.Point(8, 22);
-            this.badFileName.Name = "badFileName";
-            this.badFileName.Size = new System.Drawing.Size(35, 13);
-            this.badFileName.TabIndex = 7;
-            this.badFileName.Text = "label1";
+            this.fileName.AutoSize = true;
+            this.fileName.Location = new System.Drawing.Point(8, 22);
+            this.fileName.Name = "fileName";
+            this.fileName.Size = new System.Drawing.Size(27, 13);
+            this.fileName.TabIndex = 7;
+            this.fileName.Text = "asdf";
             // 
             // label1
             // 
@@ -108,7 +108,7 @@
             this.Controls.Add(this.ok);
             this.Controls.Add(this.possibleLocs);
             this.Controls.Add(this.origLoc);
-            this.Controls.Add(this.badFileName);
+            this.Controls.Add(this.fileName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.text1);
             this.Controls.Add(this.text2);
@@ -122,7 +122,7 @@
         #endregion
 
         private System.Windows.Forms.Label origLoc;
-        private System.Windows.Forms.Label badFileName;
+        private System.Windows.Forms.Label fileName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label text1;
         private System.Windows.Forms.Label text2;

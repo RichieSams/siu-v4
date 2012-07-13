@@ -6,17 +6,21 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SkinInstaller
 {
     public partial class FileLocForm : Form
     {
-        public FileLocForm(List<String> options)
+        public FileLocForm(FileInfo file, List<String> options)
         {
             InitializeComponent();
 
-            foreach (String file in options)
-                possibleLocs.Items.Add(file);
+            this.fileName.Text = file.Name;
+            this.origLoc.Text = file.FullName;
+
+            foreach (String potentialFile in options)
+                possibleLocs.Items.Add(potentialFile);
             possibleLocs.Sorted = true;
         }
     }

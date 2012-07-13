@@ -47,10 +47,6 @@ namespace SkinInstaller
 
         #endregion // Variables
 
-        #region Structs
-
-        #endregion // Structs
-
         public skinInstaller()
         {
             InitializeComponent();
@@ -441,12 +437,12 @@ namespace SkinInstaller
                 //
                 return null;
             }
-            if (filePath.ToLower().Contains("animations.list") || filePath.ToLower().Contains("animations.ini"))
-            {
-                // this is guna break stuff, dont do it!
-                Cliver.Message.Inform("Animations.list and animationos.ini files are known to break a LoL install. File will be skipped.");
-                return null;
-            }
+            //if (filePath.ToLower().Contains("animations.list") || filePath.ToLower().Contains("animations.ini"))
+            //{
+            //    // this is guna break stuff, dont do it!
+            //    Cliver.Message.Inform("Animations.list and animationos.ini files are known to break a LoL install. File will be skipped.");
+            //    return null;
+            //}
 
             // Find all potential matches
             List<String> options = new List<String>();
@@ -471,14 +467,16 @@ namespace SkinInstaller
                 return null;
             else if (options.Count > 1)
             {
-                return reduceOptions(fi.Directory, options);
+                return reduceOptions(fi, options);
             }
             else
                 return options[0];
         }
 
-        private String reduceOptions(DirectoryInfo parentDirectory, List<String> options)
+        private String reduceOptions(FileInfo fileInfo, List<String> options)
         {
+            DirectoryInfo parentDirectory = fileInfo.Directory;
+
             int counter = 1;
             while (options.Count > 1)
             {
@@ -503,7 +501,7 @@ namespace SkinInstaller
             }
 
             // Ask the user to select the correct file
-            FileLocForm getCorrectFile = new FileLocForm(options);
+            FileLocForm getCorrectFile = new FileLocForm(fileInfo, options);
             if (getCorrectFile.ShowDialog() == DialogResult.OK)
             {
                 getCorrectFile = null;
