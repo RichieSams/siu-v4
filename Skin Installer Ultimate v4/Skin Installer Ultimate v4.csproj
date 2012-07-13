@@ -92,6 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileHandler.cs" />
+    <Compile Include="FileLocForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileLocForm.Designer.cs">
+      <DependentUpon>FileLocForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="skinInstaller.cs">
       <SubType>Form</SubType>
@@ -101,6 +107,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FileLocForm.resx">
+      <DependentUpon>FileLocForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="skinInstaller.resx">
       <DependentUpon>skinInstaller.cs</DependentUpon>
     </EmbeddedResource>

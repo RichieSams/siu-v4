@@ -39,8 +39,7 @@ namespace SkinInstaller
 
         //private SQLiteConnection sqLiteCon = new SQLiteConnection();
 
-        private Dictionary<String, RAFFileListEntry> fileEntriesFull = new Dictionary<String, RAFFileListEntry>();
-        private Dictionary<String, List<RAFFileListEntry>> fileEntriesShort = new Dictionary<String, List<RAFFileListEntry>>();
+        RAFMasterFileList rafFiles;
         private List<String> airFiles = new List<String>();
 
         Stopwatch rafTimer = new Stopwatch();
@@ -67,6 +66,8 @@ namespace SkinInstaller
             // Select the last used tab
             tabControl.SelectTab(Properties.Settings.Default.lastSelectedTab);
         }
+
+        #region Load and Close events
 
         private void skinInstaller_Load(object sender, EventArgs e)
         {
@@ -103,9 +104,9 @@ namespace SkinInstaller
 
             // Cleanup and leftover temp directories
             if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
-            {
                 this.SIFileOp.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
-            }
+            if (Directory.Exists(Application.StartupPath + @"\filesToBeInstalled\"))
+                this.SIFileOp.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\", true);
 
             // Check for program updates
             //
@@ -191,20 +192,16 @@ namespace SkinInstaller
             {
                 rafTimer.Start();
                 // Load raf files
-                List<String> rafFilePaths = getRAFFiles(gameDirectory + @"RADS\projects\lol_game_client\filearchives");
-
-                foreach (String path in rafFilePaths)
-                {
-                    RAFArchive raf = new RAFArchive(path);
-
-                    fileEntriesFull = combineFileDicts(fileEntriesFull, raf.FileDictFull);
-                    fileEntriesShort = combineFileDicts(fileEntriesShort, raf.FileDictShort);
-                }
+                rafFiles = new RAFMasterFileList(gameDirectory + @"RADS\projects\lol_game_client\filearchives");
                 rafTimer.Stop();
 
                 airTimer.Start();
                 // Load Air files
                 airFiles.AddRange(Directory.GetFiles(gameDirectory + @"RADS\projects\lol_air_client\releases", "*", SearchOption.AllDirectories));
+                for (int i = 0; i < airFiles.Count; i++)
+                {
+                    airFiles[i] = @"AirFiles\" + airFiles[i].Remove(0, (gameDirectory + @"RADS\projects\lol_air_client\releases\").Count());
+                }
                 airTimer.Stop();
             }
 
@@ -217,6 +214,10 @@ namespace SkinInstaller
             Properties.Settings.Default.lastSelectedTab = tabControl.SelectedIndex;
             Properties.Settings.Default.Save();
         }
+
+        #endregion // Load and Close events
+
+        #region Adding files to new skins
 
         private void skinInstaller_DragEnter(object sender, DragEventArgs e)
         {
@@ -369,70 +370,25 @@ namespace SkinInstaller
             //
 
             // Try to find the corresponding RAFFileListEntry/Air file to match the added file
+            List<String> skippedFiles = new List<String>();
             foreach (String file in finalAddedFiles)
             {
-                getFileLocation(file);
-            }
-        }
-
-        #region Helper Functions
-
-        private List<String> getRAFFiles(String baseDir)
-        {
-            String[] folders = Directory.GetDirectories(baseDir);
-
-            List<String> returnFiles = new List<String>();
-
-            foreach (String folder in folders)
-            {
-                returnFiles.AddRange(Directory.GetFiles(folder, "*.raf", SearchOption.TopDirectoryOnly));
-            }
-            return returnFiles;
-        }
-
-        private Dictionary<String, RAFFileListEntry> combineFileDicts(Dictionary<String, RAFFileListEntry> Dict1, Dictionary<String, RAFFileListEntry> Dict2)
-        {
-            foreach (KeyValuePair<String, RAFFileListEntry> entryKVP in Dict2)
-            {
-                if (!Dict1.ContainsKey(entryKVP.Key))
-                    Dict1.Add(entryKVP.Key, entryKVP.Value);
-                else
+                String location = getFileLocation(file);
+                if (location != null)
                 {
-                    if (Convert.ToInt32(entryKVP.Value.RAFArchive.GetID().Replace(".", "")) > Convert.ToInt32(Dict1[entryKVP.Key].RAFArchive.GetID().Replace(".", "")))
-                        Dict1[entryKVP.Key] = entryKVP.Value;
+                    installFiles_ListBox.Items.Add(location);
+                    SIFileOp.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location.Replace('/', '\\'));
                 }
-            }
-            return Dict1;
-        }
-
-        private Dictionary<String, List<RAFFileListEntry>> combineFileDicts(Dictionary<String, List<RAFFileListEntry>> Dict1, Dictionary<String, List<RAFFileListEntry>> Dict2)
-        {
-            foreach (KeyValuePair<String, List<RAFFileListEntry>> entryKVP in Dict2)
-            {
-                if (!Dict1.ContainsKey(entryKVP.Key))
-                    Dict1.Add(entryKVP.Key, entryKVP.Value);
                 else
-                {
-                    for (int i = 0; i < entryKVP.Value.Count; i++)
-                    {
-                        Boolean conflict = false;
-                        for (int j = 0; j < Dict1[entryKVP.Key].Count; j++)
-                        {
-                            if (entryKVP.Value[i].FileName == Dict1[entryKVP.Key][j].FileName)
-                            {
-                                conflict = true;
-                                if (Convert.ToInt32(entryKVP.Value[i].RAFArchive.GetID().Replace(".", "")) > Convert.ToInt32(Dict1[entryKVP.Key][j].RAFArchive.GetID().Replace(".", "")))
-                                {
-                                    Dict1[entryKVP.Key][j] = entryKVP.Value[i];
-                                }
-                            }
-                        }
-                        if (!conflict)
-                            Dict1[entryKVP.Key].Add(entryKVP.Value[i]);
-                    }
-                }
+                    skippedFiles.Add(file);
             }
-            return Dict1;
+            if (skippedFiles.Count > 0)
+            {
+                String message = "Sucessfully added " + installFiles_ListBox.Items.Count.ToString() + " files.\n\nThe following files were invalid or could not be identified and were skipped:\n\n";
+                foreach (String file in skippedFiles)
+                    message += file + "\n";
+                Cliver.Message.Ok("Hey!", SystemIcons.Information, message);
+            }
         }
 
         private String getFileLocation(String filePath)
@@ -455,22 +411,27 @@ namespace SkinInstaller
                 //
                 // Do something
                 //
+                Cliver.Message.Inform("Sound installation is not supported at this moment. File will be skipped");
+                return null;
             }
             if (filePath.ToLower().Contains("siuinfo.txt"))
             {
                 //
                 // Do something
                 //
+                return null;
             }
             if (filePath.ToLower().Contains("customtext.txt"))
             {
                 //
                 // Do something
                 //
+                return null;
             }
             if (filePath.ToLower().Contains("fontconfig_en_us"))
             {
                 // this is guna break stuff, dont do it!
+                Cliver.Message.Inform("Custom in-game text mods should be installed by creating a customtext.txt file, not by installing fonconfig_en_us. File will be skipped.");
                 return null;
             }
             if (filePath.ToLower().Contains("siupreview"))
@@ -478,10 +439,12 @@ namespace SkinInstaller
                 //
                 // Do something
                 //
+                return null;
             }
             if (filePath.ToLower().Contains("animations.list") || filePath.ToLower().Contains("animations.ini"))
             {
                 // this is guna break stuff, dont do it!
+                Cliver.Message.Inform("Animations.list and animationos.ini files are known to break a LoL install. File will be skipped.");
                 return null;
             }
 
@@ -490,9 +453,9 @@ namespace SkinInstaller
             FileInfo fi = new FileInfo(filePath);
 
             // Search RAF files
-            if (fileEntriesShort.ContainsKey(fi.Name))
+            if (rafFiles.FileDictShort.ContainsKey(fi.Name.ToLower()))
             {
-                foreach (RAFFileListEntry entry in fileEntriesShort[fi.Name])
+                foreach (RAFFileListEntry entry in rafFiles.FileDictShort[fi.Name.ToLower()])
                     options.Add(entry.FileName);
             }
 
@@ -500,21 +463,60 @@ namespace SkinInstaller
             foreach (String airFile in airFiles)
             {
                 FileInfo airFI = new FileInfo(airFile);
-                if (fi.Name == airFI.Name)
+                if (fi.Name.ToLower() == airFI.Name.ToLower())
                     options.Add(airFile);
             }
 
             if (options.Count == 0)
                 return null;
-
-            if (options.Count > 1)
+            else if (options.Count > 1)
             {
-
+                return reduceOptions(fi.Directory, options);
             }
-
-            return options[0];
+            else
+                return options[0];
         }
 
-        #endregion // Helper Functions
+        private String reduceOptions(DirectoryInfo parentDirectory, List<String> options)
+        {
+            int counter = 1;
+            while (options.Count > 1)
+            {
+                counter++;
+                List<String> remaining = new List<String>();
+                foreach (String file in options)
+                {
+                    String[] filePath = file.Split('/');
+                    if (parentDirectory.Name.ToLower() == filePath[filePath.Length - counter].ToLower())
+                    {
+                        remaining.Add(file);
+                    }
+                }
+                if (remaining.Count == 0)
+                    break;
+                else if (remaining.Count == 1)
+                    return remaining[0];
+                else
+                {
+                    options = remaining;
+                }
+            }
+
+            // Ask the user to select the correct file
+            FileLocForm getCorrectFile = new FileLocForm(options);
+            if (getCorrectFile.ShowDialog() == DialogResult.OK)
+            {
+                getCorrectFile = null;
+                return getCorrectFile.possibleLocs.SelectedItem.ToString();
+            }
+            else
+            {
+                getCorrectFile = null;
+                return null;
+            }
+        }
+
+        #endregion // Adding files to new skins
+
     }
 }
