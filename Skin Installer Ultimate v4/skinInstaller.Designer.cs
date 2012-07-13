@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(skinInstaller));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1312,11 +1312,11 @@
             this.treeView1.ItemHeight = 16;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode2.Name = "Please Wait";
-            treeNode2.Text = "Please wait for the progress bar to finish loading bellow...";
-            treeNode2.ToolTipText = "Please wait...";
+            treeNode3.Name = "Please Wait";
+            treeNode3.Text = "Please wait for the progress bar to finish loading bellow...";
+            treeNode3.ToolTipText = "Please wait...";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode3});
             this.treeView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(805, 302);
@@ -1357,7 +1357,7 @@
             this.MinimumSize = new System.Drawing.Size(100, 100);
             this.Name = "skinInstaller";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "(Set by main program file)";
+            this.Text = "Skin Installer Ultimate v4";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.skinInstaller_FormClosing);
             this.Load += new System.EventHandler(this.skinInstaller_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
