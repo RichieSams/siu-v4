@@ -7,7 +7,7 @@
 
     public class FileHandler
     {
-        public void DirectoryDelete(string dirName, bool sub)
+        public void DirectoryDelete(string dirName)
         {
             try
             {
@@ -84,9 +84,20 @@
 
         public void FileMove(string fileName, string fileDest)
         {
-            File.SetAttributes(fileName,
-                    FileAttributes.Normal);
-            this.FileCopy(fileName, fileDest);
+            try
+            {
+                string[] strArray = fileDest.Split(new char[] { '\\' });
+                string path = fileDest.Remove(fileDest.Length - strArray[strArray.Length - 1].Length);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                File.Move(fileName, fileDest);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message + "\r\n on the file " + fileName + "\r\ngoing to \r\n" + fileDest);
+            }
         }
         public void DirectoryMove(string dirPath, string dirDest)
         {

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(skinInstaller));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editInstallPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +66,7 @@
             this.helpButton = new System.Windows.Forms.Button();
             this.installSkinsTab = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.skinDatabaseListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -493,7 +493,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AllowDrop = true;
-            this.splitContainer1.Panel1.Controls.Add(this.listView1);
+            this.splitContainer1.Panel1.Controls.Add(this.skinDatabaseListView);
             this.splitContainer1.Panel1.Controls.Add(this.panel8);
             this.splitContainer1.Panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.splitContainer1.Panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
@@ -507,11 +507,11 @@
             this.splitContainer1.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.splitContainer1.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // listView1
+            // skinDatabaseListView
             // 
-            this.listView1.AutoArrange = false;
-            this.listView1.CheckBoxes = true;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.skinDatabaseListView.AutoArrange = false;
+            this.skinDatabaseListView.CheckBoxes = true;
+            this.skinDatabaseListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -521,22 +521,22 @@
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 15);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(615, 288);
-            this.listView1.TabIndex = 3;
-            this.listView1.TileSize = new System.Drawing.Size(2, 2);
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.skinDatabaseListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.skinDatabaseListView.GridLines = true;
+            this.skinDatabaseListView.Location = new System.Drawing.Point(0, 15);
+            this.skinDatabaseListView.Name = "skinDatabaseListView";
+            this.skinDatabaseListView.Size = new System.Drawing.Size(615, 288);
+            this.skinDatabaseListView.TabIndex = 3;
+            this.skinDatabaseListView.TileSize = new System.Drawing.Size(2, 2);
+            this.skinDatabaseListView.UseCompatibleStateImageBehavior = false;
+            this.skinDatabaseListView.View = System.Windows.Forms.View.Details;
+            this.skinDatabaseListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.skinDatabaseListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 43;
+            this.columnHeader1.Width = 20;
             // 
             // columnHeader2
             // 
@@ -556,12 +556,12 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "Installed";
-            this.columnHeader5.Width = 53;
+            this.columnHeader5.Width = 75;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Added";
-            this.columnHeader6.Width = 67;
+            this.columnHeader6.Width = 75;
             // 
             // columnHeader7
             // 
@@ -576,7 +576,7 @@
             // columnHeader9
             // 
             this.columnHeader9.Text = "Character";
-            this.columnHeader9.Width = 90;
+            this.columnHeader9.Width = 82;
             // 
             // panel8
             // 
@@ -1147,11 +1147,11 @@
             this.treeView1.ItemHeight = 16;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Please Wait";
-            treeNode1.Text = "Please wait for the progress bar to finish loading bellow...";
-            treeNode1.ToolTipText = "Please wait...";
+            treeNode5.Name = "Please Wait";
+            treeNode5.Text = "Please wait for the progress bar to finish loading bellow...";
+            treeNode5.ToolTipText = "Please wait...";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode5});
             this.treeView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(805, 302);
@@ -1279,7 +1279,7 @@
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.TabPage installSkinsTab;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView skinDatabaseListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

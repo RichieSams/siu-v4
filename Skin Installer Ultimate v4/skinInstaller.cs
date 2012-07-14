@@ -58,14 +58,14 @@ namespace SkinInstaller
 
         private void skinInstaller_Load(object sender, EventArgs e)
         {
-            //if (Application.StartupPath.Length > 63)
-            //{
-            //    Cliver.Message.Inform("The path that this program is running from\n\"" +
-            //        Application.StartupPath + "\" \nIs too long and could potentially cause errors.\n\n" +
-            //        "It is STRONGLY advised to move this folder to a shorter path location (like C:\\siu)\n" +
-            //        "Please do this now before continuing");
-            //    this.Close();
-            //}
+            if (Application.StartupPath.Length > 160)
+            {
+                Cliver.Message.Inform("The path that this program is running from\n\"" +
+                    Application.StartupPath + "\" \nIs too long and could potentially cause errors.\n\n" +
+                    "It is STRONGLY advised to move this folder to a shorter path location (like C:\\siu)\n" +
+                    "Please do this now before continuing");
+                this.Close();
+            }
             if (Application.StartupPath.ToLower().Contains("temp") && !Properties.Settings.Default.hideTempWarningMessage)
             {
 
@@ -89,6 +89,13 @@ namespace SkinInstaller
             // Set 7zip location for extraction and compression use
             SevenZipCompressor.SetLibraryPath(Application.StartupPath + @"\7z.dll");
 
+            // Check for program updates
+            //
+            // Need to ask Greg to add a version.ini
+            //
+            //
+            MessageBox.Show(Application.ProductVersion.ToString());
+
             // Initialize the database
             database = new SQLiteDatabase(Application.StartupPath + @"\skins.s3db");
 
@@ -102,11 +109,11 @@ namespace SkinInstaller
                                                 );
 
                                            CREATE TABLE [skins] (
-                                                [SkinID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                                [Name] VARCHAR(50) DEFAULT '''''''NULL''''''' UNIQUE NULL,
-                                                [Author] VARCHAR(50) DEFAULT '''''''NULL''''''' NULL,
-                                                [Installed] BOOLEAN DEFAULT '''''''0''''''' NULL,
-                                                [DateInstalled] TIMESTAMP DEFAULT '''''''NULL''''''' NULL,
+                                                [SkinID] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+                                                [Name] VARCHAR(50)  UNIQUE NULL,
+                                                [Author] VARCHAR(50)  NULL,
+                                                [Installed] BOOLEAN DEFAULT '0' NULL,
+                                                [DateInstalled] TIMESTAMP  NULL,
                                                 [DateAdded] TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
                                                 );");
             }
@@ -117,16 +124,9 @@ namespace SkinInstaller
 
             // Cleanup and leftover temp directories
             if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
-                fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
+                fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
             if (Directory.Exists(Application.StartupPath + @"\filesToBeInstalled\"))
-                fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\", true);
-
-            // Check for program updates
-            //
-            // Need to ask Greg to add a version.ini
-            //
-            //
-            MessageBox.Show(Application.ProductVersion.ToString());
+                fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\");
 
             // Find League installation
             if (Properties.Settings.Default.gameDir != "" && (File.Exists(Properties.Settings.Default.gameDir + "lol.launcher.exe") || File.Exists(Properties.Settings.Default.gameDir + "league of legends.exe")))
@@ -215,6 +215,9 @@ namespace SkinInstaller
                     airFiles[i] = @"AirFiles" + airFiles[i].Remove(0, airFileLocation.Count());
                 }
             }
+
+            // Update the list view
+            updateListView();
 
             this.Focus();
         }
@@ -332,7 +335,7 @@ namespace SkinInstaller
                 this.installFiles_ListBox.Items.Clear();
 
                 if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
-                    this.fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
+                    this.fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
             }
         }
 
@@ -634,12 +637,8 @@ namespace SkinInstaller
                     }
                     if (replace == 1)
                     {
-                        //
-                        // Uncomment when these functions are created
-                        //
-                        //
-                        //uninstallSkin(skinNameTextbox.Text);
-                        //deleteSkin(skinNameTextbox.Text);
+                        uninstallSkin(skinNameTextbox.Text);
+                        deleteSkin(skinNameTextbox.Text);
                     }
                 }
                 // Not in the database but the folder exists
@@ -665,26 +664,103 @@ namespace SkinInstaller
                     else
                     {
                         //clear that folder and contiunue
-                        fileHandler.DirectoryDelete(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text, true);
+                        fileHandler.DirectoryDelete(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text);
 
                     }
                 }
             }
 
-            // File Moving
+            // Create database skin entry
+            DataTable dataTable = database.Query("SELECT SkinID FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
+            if (dataTable == null)
+            {
+                database.ExecuteNonQuery("INSERT INTO skins (Name, Author) VALUES ('" + skinNameTextbox.Text + "', '" + authorNameTextbox.Text + "')");
+            }
+            else
+            {
+                database.ExecuteNonQuery("DELETE FROM skinFiles WHERE SkinID=" + dataTable.Rows[0][0].ToString());
+                database.ExecuteNonQuery("DELETE FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
+                database.ExecuteNonQuery("INSERT INTO skins (Name, Author) VALUES ('" + skinNameTextbox.Text + "', '" + authorNameTextbox.Text + "')");
+            }
+            dataTable = database.Query("SELECT SkinID FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
+            int skinID = int.Parse(dataTable.Rows[0][0].ToString());
 
-            // Database entering
+            // Move files and create an entry for them
+            String insertString = "INSERT INTO skinFiles (SkinID, Path) VALUES ";
+            foreach (String item in installFiles_ListBox.Items)
+            {
+                fileHandler.FileMove(Application.StartupPath + @"\filesToBeInstalled\" + item.Replace('/', '\\'), Application.StartupPath + @"\Skins\" + skinNameTextbox.Text + @"\" + item.Replace('/', '\\'));
+                insertString += "('" + skinID + "', '" + item + "'), ";
+            }
+            insertString = insertString.Remove(insertString.Length - 2);
+            database.ExecuteNonQuery(insertString);
+
+            // Update the list view
+            updateListView();
+
+            // See if the user wants to install the skin right now
+            int install = Properties.Settings.Default.installWhenAddingSkin;
+            if (install == -1)
+            {
+                bool saveThis = false;
+                Cliver.Message.NextTime_ButtonColors = new Color[] { Color.LightGreen, Color.LightGreen };
+                install = Cliver.Message.Show("Done Adding " + skinNameTextbox.Text,
+                        SystemIcons.Information, out saveThis,
+                     "Added " + this.skinNameTextbox.Text + " to the Skin Database!\nYou can go to the other tab to install it!",
+                        0, new string[2] { "OK", "Please automatically install it at this time." });
+                if (saveThis) Properties.Settings.Default.installWhenAddingSkin = install;
+                Properties.Settings.Default.Save();
+            }
+            if (install == 1)
+            {
+                installSkin(skinNameTextbox.Text);
+            }
+
+            // Reset listBox
+            installFiles_ListBox.Items.Clear();
+            skinNameTextbox.Text = "";
+            authorNameTextbox.Text = "Unknown";
 
             // Cleanup of temp folders
-            fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
-            fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\", true);
+            fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
+            fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\");
+        }
+
+        private void updateListView()
+        {
+            DataTable table = database.Query("SELECT s.Installed, s.Name, s.Author, (SELECT COUNT(f.FileID) FROM skinFiles AS f WHERE SkinID=s.SkinID ), s.DateInstalled, s.DateAdded FROM skins AS s");
+            skinDatabaseListView.Items.Clear();
+            foreach (DataRow row in table.Rows)
+            {
+                ListViewItem item = new ListViewItem();
+                if (row[0].ToString() == "1")
+                    item.Font = new Font(item.Font, FontStyle.Bold);
+                for (int i = 1; i < table.Columns.Count; i++)
+                {
+                    item.SubItems.Add(row[i].ToString());
+                }
+                skinDatabaseListView.Items.Add(item);
+            }
         }
 
         #endregion // Adding files to new skins
 
         #region Installation
 
+        private void installSkin(String skinName)
+        {
 
+        }
+
+        private void uninstallSkin(String skinName)
+        {
+
+        }
+
+        private void deleteSkin(String skinName)
+        {
+
+        }
 
         #endregion // Installation
 

@@ -94,5 +94,17 @@ namespace SkinInstaller.Properties {
                 this["replaceFolderWarning"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int installWhenAddingSkin {
+            get {
+                return ((int)(this["installWhenAddingSkin"]));
+            }
+            set {
+                this["installWhenAddingSkin"] = value;
+            }
+        }
     }
 }
