@@ -9,12 +9,11 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using System.Globalization;
 using SevenZip;
-//using System.Data.SQLite;
+using System.Data.SQLite;
 
 using RAFlibPlus;
 using ItzWarty;
@@ -33,31 +32,23 @@ namespace SkinInstaller
 
         private string versionURL = "";
         private string changeLogURL = "https://sites.google.com/site/siuupdates/version.txt";
-        WebClient webClient = new WebClient();
+        private WebClient webClient = new WebClient();
 
-        private FileHandler SIFileOp = new FileHandler();
+        private FileHandler fileHandler = new FileHandler();
 
-        //private SQLiteConnection sqLiteCon = new SQLiteConnection();
+        private SQLiteDatabase database;
 
-        RAFMasterFileList rafFiles;
+        private RAFMasterFileList rafFiles;
         private List<String> airFiles = new List<String>();
+        String airFileLocation = String.Empty;
 
-        Stopwatch rafTimer = new Stopwatch();
-        Stopwatch airTimer = new Stopwatch();
+        String lastFolderPath = String.Empty;
 
         #endregion // Variables
 
         public skinInstaller()
         {
             InitializeComponent();
-
-            //// Initialize the database
-            //sqLiteCon.ConnectionString = "data source=\"" + Application.StartupPath + "\\skins.db\"";
-            //sqLiteCon.Open();
-
-            // Set culture info to try and fix errors concerning locale
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
             // Select the last used tab
             tabControl.SelectTab(Properties.Settings.Default.lastSelectedTab);
@@ -98,11 +89,37 @@ namespace SkinInstaller
             // Set 7zip location for extraction and compression use
             SevenZipCompressor.SetLibraryPath(Application.StartupPath + @"\7z.dll");
 
+            // Initialize the database
+            database = new SQLiteDatabase(Application.StartupPath + @"\skins.s3db");
+
+            // Create the database if it doesn't exist
+            if (!File.Exists(Application.StartupPath + @"\skins.s3db"))
+            {
+                database.ExecuteNonQuery(@"CREATE TABLE [skinFiles] (
+                                                [FileID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                                [SkinID] INTEGER  NULL,
+                                                [Path] VARCHAR(200)  NULL
+                                                );
+
+                                           CREATE TABLE [skins] (
+                                                [SkinID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                                [Name] VARCHAR(50) DEFAULT '''''''NULL''''''' UNIQUE NULL,
+                                                [Author] VARCHAR(50) DEFAULT '''''''NULL''''''' NULL,
+                                                [Installed] BOOLEAN DEFAULT '''''''0''''''' NULL,
+                                                [DateInstalled] TIMESTAMP DEFAULT '''''''NULL''''''' NULL,
+                                                [DateAdded] TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
+                                                );");
+            }
+
+            // Set culture info to try and fix errors concerning locale
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
             // Cleanup and leftover temp directories
             if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
-                this.SIFileOp.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
+                fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
             if (Directory.Exists(Application.StartupPath + @"\filesToBeInstalled\"))
-                this.SIFileOp.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\", true);
+                fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\", true);
 
             // Check for program updates
             //
@@ -186,19 +203,17 @@ namespace SkinInstaller
             }
             else
             {
-                rafTimer.Start();
                 // Load raf files
                 rafFiles = new RAFMasterFileList(gameDirectory + @"RADS\projects\lol_game_client\filearchives");
-                rafTimer.Stop();
 
-                airTimer.Start();
                 // Load Air files
-                airFiles.AddRange(Directory.GetFiles(gameDirectory + @"RADS\projects\lol_air_client\releases", "*", SearchOption.AllDirectories));
+                airFileLocation = Directory.GetDirectories(gameDirectory + @"RADS\projects\lol_air_client\releases").Last();
+
+                airFiles.AddRange(Directory.GetFiles(airFileLocation, "*", SearchOption.AllDirectories));
                 for (int i = 0; i < airFiles.Count; i++)
                 {
-                    airFiles[i] = @"AirFiles\" + airFiles[i].Remove(0, (gameDirectory + @"RADS\projects\lol_air_client\releases\").Count());
+                    airFiles[i] = @"AirFiles" + airFiles[i].Remove(0, airFileLocation.Count());
                 }
-                airTimer.Stop();
             }
 
             this.Focus();
@@ -231,7 +246,7 @@ namespace SkinInstaller
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                List<string> usable = new List<string>();
+                List<String> usable = new List<String>();
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string file in files)
                 {
@@ -258,6 +273,66 @@ namespace SkinInstaller
 
                 // Validate the added files
                 processAddedFiles(usable);
+            }
+        }
+
+        private void b_IAddFiles_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.FileName = "";
+            fileDialog.CheckFileExists = true;
+            fileDialog.Multiselect = true;
+            fileDialog.Title = "Please select skin files..";
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                processAddedFiles(fileDialog.FileNames.ToList());
+            }
+        }
+
+        private void b_IAddDirectory_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            folderDialog.Description = "Please select skin folder..";
+            if (lastFolderPath != String.Empty)
+                folderDialog.SelectedPath = lastFolderPath;
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                List<String> usable = new List<String>();
+
+                string[] fileArray = Directory.GetFiles(folderDialog.SelectedPath, "*", SearchOption.AllDirectories);
+                foreach (string path in fileArray)
+                {
+                    usable.Add(path);
+                }
+                processAddedFiles(usable);
+
+                lastFolderPath = folderDialog.SelectedPath;
+            }
+        }
+
+        private void b_IRemoveFiles_Click(object sender, EventArgs e)
+        {
+            if (installFiles_ListBox.SelectedItem != null)
+            {
+                if (File.Exists(Application.StartupPath + @"\filesToBeInstalled\" + installFiles_ListBox.SelectedItem.ToString()))
+                {
+                    this.fileHandler.FileDelete(Application.StartupPath + @"\filesToBeInstalled\" + installFiles_ListBox.SelectedItem.ToString());
+                }
+
+                installFiles_ListBox.Items.Remove(installFiles_ListBox.SelectedItem);
+            }
+        }
+
+        private void b_IClearAll_Click(object sender, EventArgs e)
+        {
+            if (Cliver.Message.Show("Confirm", SystemIcons.Question, "Are you sure you wish to remove all loaded files?", 0, new string[2] { "Yes", "No" }) == 0)
+            {
+                this.skinNameTextbox.Text = "";
+                this.authorNameTextbox.Text = "Unknown";
+                this.installFiles_ListBox.Items.Clear();
+
+                if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
+                    this.fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
             }
         }
 
@@ -373,7 +448,7 @@ namespace SkinInstaller
                 if (location != null)
                 {
                     installFiles_ListBox.Items.Add(location);
-                    SIFileOp.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location.Replace('/', '\\'));
+                    fileHandler.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location.Replace('/', '\\'));
                 }
                 else
                     skippedFiles.Add(file);
@@ -437,12 +512,12 @@ namespace SkinInstaller
                 //
                 return null;
             }
-            //if (filePath.ToLower().Contains("animations.list") || filePath.ToLower().Contains("animations.ini"))
-            //{
-            //    // this is guna break stuff, dont do it!
-            //    Cliver.Message.Inform("Animations.list and animationos.ini files are known to break a LoL install. File will be skipped.");
-            //    return null;
-            //}
+            if (filePath.ToLower().Contains("animations.list") || filePath.ToLower().Contains("animations.ini"))
+            {
+                // this is guna break stuff, dont do it!
+                Cliver.Message.Inform("Animations.list and animationos.ini files are known to break a LoL install. File will be skipped.");
+                return null;
+            }
 
             // Find all potential matches
             List<String> options = new List<String>();
@@ -514,7 +589,104 @@ namespace SkinInstaller
             }
         }
 
+        private void addToDBButton_Click(object sender, EventArgs e)
+        {
+            if (installFiles_ListBox.Items.Count == 0)
+            {
+                Cliver.Message.Inform("You don't have any files loaded!\nDrag and drop files into SIU or click 'Add Files' or 'Add Directory' and select the files you wish to install.");
+                return;
+            }
+            if (skinNameTextbox.Text == "")
+            {
+                InputBox inputbox = new InputBox("Please enter a name for this skin", "Please enter a name for this skin");
+                if (inputbox.ShowDialog() == DialogResult.OK)
+                {
+                    skinNameTextbox.Text = inputbox.textBoxText.Text;
+                }
+                else
+                    return;
+            }
+
+            // Remove harmful characters
+            skinNameTextbox.Text = skinNameTextbox.Text.Replace("\\", "-").Replace("/", "-").Replace(":", "-").Replace("*", "-").Replace("\"", "-").Replace("|", "-").Replace(">", "-").Replace("<", "-").Replace("?", "-");
+            authorNameTextbox.Text = authorNameTextbox.Text.Replace("\\", "-").Replace("/", "-").Replace(":", "-").Replace("*", "-").Replace("\"", "-").Replace("|", "-").Replace(">", "-").Replace("<", "-").Replace("?", "-");
+
+            if (Directory.Exists(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text))
+            {
+                DataTable table = database.Query("SELECT * FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
+                // Skin exists in the database and the folder exists
+                if (table == null)
+                {
+                    int replace = Properties.Settings.Default.replaceSkinWarning;
+                    if (replace == -1)
+                    {
+                        bool saveThis = false;
+
+                        replace = Cliver.Message.Show("Replace Skin?",
+                            SystemIcons.Information,out saveThis,
+                            "A skin with this name is already installed!\r\n" +
+                            "You should type in a new name, then press the \"Add to Database\" Button.\r\n" +
+                            "\r\nIf you named it this way intentionally, and wish to update a skin,\r\n" +
+                            "click the corresponding button.\r\n",
+                            0, new string[2] { "Stop and Let Me Choose a New Name", "I am updating a skin, and am ready to replace it." });
+                        if (saveThis) 
+                            Properties.Settings.Default.replaceSkinWarning=replace;
+                    }
+                    if (replace == 1)
+                    {
+                        //
+                        // Uncomment when these functions are created
+                        //
+                        //
+                        //uninstallSkin(skinNameTextbox.Text);
+                        //deleteSkin(skinNameTextbox.Text);
+                    }
+                }
+                // Not in the database but the folder exists
+                else
+                {
+                    int repFold = Properties.Settings.Default.replaceFolderWarning;
+                    if (repFold == -1)
+                    {
+                        bool saveThis = false;
+                        repFold = Cliver.Message.Show("Replace Folder",
+                            SystemIcons.Information, out saveThis,
+                            "A folder with this name already exists\r\n" +
+                            "But the skin inside is not yet in the database...\r\n" +
+                            "\r\nWould you like to update this folder and replace its contents?",
+                            0, new string[2] { "Yes", "No" });
+                        if (saveThis) 
+                            Properties.Settings.Default.replaceFolderWarning = repFold;
+                    }
+                    if (repFold == 1)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        //clear that folder and contiunue
+                        fileHandler.DirectoryDelete(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text, true);
+
+                    }
+                }
+            }
+
+            // File Moving
+
+            // Database entering
+
+            // Cleanup of temp folders
+            fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\", true);
+            fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\", true);
+        }
+
         #endregion // Adding files to new skins
+
+        #region Installation
+
+
+
+        #endregion // Installation
 
     }
 }

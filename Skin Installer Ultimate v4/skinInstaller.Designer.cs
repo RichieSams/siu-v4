@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(skinInstaller));
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editInstallPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeGameClientLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,48 +39,31 @@
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerAppForWebUrlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moreDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.getVersionFilePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.readVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.getLastModDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.soundFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.repathAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iAmLGGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iCantStandLGGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wtfRainbowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setSoundFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getProgramLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.repathAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetCharacterIconsCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useDDSVersionReaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testReadResFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unpackSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loLViewerOpenNotPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openParticleReferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showMenuFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTextTreeEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openPublisherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelGL = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBoxCount = new System.Windows.Forms.PictureBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.progrespanel = new System.Windows.Forms.Panel();
-            this.label2Percent = new System.Windows.Forms.Label();
+            this.lbl_progressPercent = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.buttoncancel = new System.Windows.Forms.Button();
-            this.button3startLoL = new System.Windows.Forms.Button();
-            this.button3lcintegrate = new System.Windows.Forms.Button();
-            this.UpdateFL = new System.Windows.Forms.Button();
+            this.cancelProgressButton = new System.Windows.Forms.Button();
+            this.startLoLButton = new System.Windows.Forms.Button();
+            this.webIntegrationButton = new System.Windows.Forms.Button();
             this.locateGameClient = new System.Windows.Forms.Button();
-            this.exit = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
+            this.helpButton = new System.Windows.Forms.Button();
             this.installSkinsTab = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -95,7 +76,6 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panel9 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.checkBox1dispCharacter = new System.Windows.Forms.CheckBox();
             this.checkBox1dispDateInstalledFull = new System.Windows.Forms.CheckBox();
@@ -111,12 +91,13 @@
             this.labelSkinName = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.editSkinButton = new System.Windows.Forms.Button();
+            this.reinstallTextModsButton = new System.Windows.Forms.Button();
+            this.deleteSkinButton = new System.Windows.Forms.Button();
+            this.installButton = new System.Windows.Forms.Button();
+            this.uninstallButton = new System.Windows.Forms.Button();
+            this.createZipFromSkinButton = new System.Windows.Forms.Button();
+            this.fixSkinButton = new System.Windows.Forms.Button();
             this.addNewSkinsTab = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.installFiles_ListBox = new System.Windows.Forms.ListBox();
@@ -125,7 +106,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBoxauthor = new System.Windows.Forms.TextBox();
+            this.authorNameTextbox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AddToDatabasePanel = new System.Windows.Forms.Panel();
             this.addToDBButton = new System.Windows.Forms.Button();
@@ -136,13 +117,12 @@
             this.saveToDb = new System.Windows.Forms.CheckBox();
             this.b_IClearAll = new System.Windows.Forms.Button();
             this.b_IRemoveFiles = new System.Windows.Forms.Button();
-            this.b_IInstallFiles = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.skinCreationTab = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.label10 = new System.Windows.Forms.Label();
-            this.button3exporttree = new System.Windows.Forms.Button();
+            this.treeExportButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelGL.SuspendLayout();
@@ -178,28 +158,16 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
-            this.helpToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.debugToolStripMenuItem});
+            this.debugToolStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(819, 24);
             this.menuStrip1.TabIndex = 43;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
             // 
             // optionsToolStripMenuItem
             // 
@@ -253,77 +221,18 @@
             // debugToolStripMenuItem
             // 
             this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.moreDebugToolStripMenuItem,
-            this.soundFileLocationToolStripMenuItem,
-            this.clientLocationToolStripMenuItem,
-            this.repathAllFilesToolStripMenuItem,
             this.showDebugToolStripMenuItem,
-            this.imagesToolStripMenuItem,
-            this.iAmLGGToolStripMenuItem,
-            this.iCantStandLGGToolStripMenuItem,
-            this.pingToolStripMenuItem,
-            this.viewStatsToolStripMenuItem,
-            this.wtfRainbowsToolStripMenuItem,
-            this.setSoundFileLocationToolStripMenuItem,
+            this.clientLocationToolStripMenuItem,
             this.getProgramLocationToolStripMenuItem,
+            this.repathAllFilesToolStripMenuItem,
             this.resetCharacterIconsCacheToolStripMenuItem,
+            this.viewStatsToolStripMenuItem,
             this.useDDSVersionReaderToolStripMenuItem,
-            this.testReadResFilesToolStripMenuItem,
-            this.unpackSoundsToolStripMenuItem,
             this.loLViewerOpenNotPreviewToolStripMenuItem,
-            this.openParticleReferenceToolStripMenuItem,
-            this.showMenuFileLocationToolStripMenuItem,
-            this.openTextTreeEditorToolStripMenuItem,
-            this.openPublisherToolStripMenuItem});
+            this.showMenuFileLocationToolStripMenuItem});
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
             this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.debugToolStripMenuItem.Text = "Debug";
-            // 
-            // moreDebugToolStripMenuItem
-            // 
-            this.moreDebugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.getVersionFilePathToolStripMenuItem,
-            this.readVersionsToolStripMenuItem,
-            this.getLastModDateToolStripMenuItem});
-            this.moreDebugToolStripMenuItem.Name = "moreDebugToolStripMenuItem";
-            this.moreDebugToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.moreDebugToolStripMenuItem.Text = "More Debug";
-            // 
-            // getVersionFilePathToolStripMenuItem
-            // 
-            this.getVersionFilePathToolStripMenuItem.Name = "getVersionFilePathToolStripMenuItem";
-            this.getVersionFilePathToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.getVersionFilePathToolStripMenuItem.Text = "Get Version File Path";
-            // 
-            // readVersionsToolStripMenuItem
-            // 
-            this.readVersionsToolStripMenuItem.Name = "readVersionsToolStripMenuItem";
-            this.readVersionsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.readVersionsToolStripMenuItem.Text = "Read Versions";
-            // 
-            // getLastModDateToolStripMenuItem
-            // 
-            this.getLastModDateToolStripMenuItem.Name = "getLastModDateToolStripMenuItem";
-            this.getLastModDateToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.getLastModDateToolStripMenuItem.Text = "Get Last Mod Date";
-            // 
-            // soundFileLocationToolStripMenuItem
-            // 
-            this.soundFileLocationToolStripMenuItem.Name = "soundFileLocationToolStripMenuItem";
-            this.soundFileLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.soundFileLocationToolStripMenuItem.Text = "Sound File Location";
-            // 
-            // clientLocationToolStripMenuItem
-            // 
-            this.clientLocationToolStripMenuItem.Name = "clientLocationToolStripMenuItem";
-            this.clientLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.clientLocationToolStripMenuItem.Text = "Client Location";
-            // 
-            // repathAllFilesToolStripMenuItem
-            // 
-            this.repathAllFilesToolStripMenuItem.Name = "repathAllFilesToolStripMenuItem";
-            this.repathAllFilesToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.repathAllFilesToolStripMenuItem.Text = "Repath All Files";
             // 
             // showDebugToolStripMenuItem
             // 
@@ -331,62 +240,11 @@
             this.showDebugToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.showDebugToolStripMenuItem.Text = "Show Debug";
             // 
-            // imagesToolStripMenuItem
+            // clientLocationToolStripMenuItem
             // 
-            this.imagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadToolStripMenuItem,
-            this.saveToolStripMenuItem});
-            this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
-            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.imagesToolStripMenuItem.Text = "Images";
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.loadToolStripMenuItem.Text = "Load";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // iAmLGGToolStripMenuItem
-            // 
-            this.iAmLGGToolStripMenuItem.Name = "iAmLGGToolStripMenuItem";
-            this.iAmLGGToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.iAmLGGToolStripMenuItem.Text = "I am LGG";
-            // 
-            // iCantStandLGGToolStripMenuItem
-            // 
-            this.iCantStandLGGToolStripMenuItem.Name = "iCantStandLGGToolStripMenuItem";
-            this.iCantStandLGGToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.iCantStandLGGToolStripMenuItem.Text = "I can\'t stand LGG";
-            // 
-            // pingToolStripMenuItem
-            // 
-            this.pingToolStripMenuItem.Name = "pingToolStripMenuItem";
-            this.pingToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.pingToolStripMenuItem.Text = "Ping";
-            // 
-            // viewStatsToolStripMenuItem
-            // 
-            this.viewStatsToolStripMenuItem.Name = "viewStatsToolStripMenuItem";
-            this.viewStatsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.viewStatsToolStripMenuItem.Text = "View Stats";
-            // 
-            // wtfRainbowsToolStripMenuItem
-            // 
-            this.wtfRainbowsToolStripMenuItem.Name = "wtfRainbowsToolStripMenuItem";
-            this.wtfRainbowsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.wtfRainbowsToolStripMenuItem.Text = "wtf rainbows";
-            // 
-            // setSoundFileLocationToolStripMenuItem
-            // 
-            this.setSoundFileLocationToolStripMenuItem.Name = "setSoundFileLocationToolStripMenuItem";
-            this.setSoundFileLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.setSoundFileLocationToolStripMenuItem.Text = "Set Sound File Location";
+            this.clientLocationToolStripMenuItem.Name = "clientLocationToolStripMenuItem";
+            this.clientLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.clientLocationToolStripMenuItem.Text = "Client Location";
             // 
             // getProgramLocationToolStripMenuItem
             // 
@@ -394,11 +252,23 @@
             this.getProgramLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.getProgramLocationToolStripMenuItem.Text = "Get Program Location";
             // 
+            // repathAllFilesToolStripMenuItem
+            // 
+            this.repathAllFilesToolStripMenuItem.Name = "repathAllFilesToolStripMenuItem";
+            this.repathAllFilesToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.repathAllFilesToolStripMenuItem.Text = "Repath All Files";
+            // 
             // resetCharacterIconsCacheToolStripMenuItem
             // 
             this.resetCharacterIconsCacheToolStripMenuItem.Name = "resetCharacterIconsCacheToolStripMenuItem";
             this.resetCharacterIconsCacheToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.resetCharacterIconsCacheToolStripMenuItem.Text = "Reset Character Icons Cache";
+            // 
+            // viewStatsToolStripMenuItem
+            // 
+            this.viewStatsToolStripMenuItem.Name = "viewStatsToolStripMenuItem";
+            this.viewStatsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.viewStatsToolStripMenuItem.Text = "View Stats";
             // 
             // useDDSVersionReaderToolStripMenuItem
             // 
@@ -406,29 +276,11 @@
             this.useDDSVersionReaderToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.useDDSVersionReaderToolStripMenuItem.Text = "Use DDS Version Reader";
             // 
-            // testReadResFilesToolStripMenuItem
-            // 
-            this.testReadResFilesToolStripMenuItem.Name = "testReadResFilesToolStripMenuItem";
-            this.testReadResFilesToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.testReadResFilesToolStripMenuItem.Text = "Test Read Res Files";
-            // 
-            // unpackSoundsToolStripMenuItem
-            // 
-            this.unpackSoundsToolStripMenuItem.Name = "unpackSoundsToolStripMenuItem";
-            this.unpackSoundsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.unpackSoundsToolStripMenuItem.Text = "unpack sounds";
-            // 
             // loLViewerOpenNotPreviewToolStripMenuItem
             // 
             this.loLViewerOpenNotPreviewToolStripMenuItem.Name = "loLViewerOpenNotPreviewToolStripMenuItem";
             this.loLViewerOpenNotPreviewToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.loLViewerOpenNotPreviewToolStripMenuItem.Text = "LoLViewer Open (Not Preview)";
-            // 
-            // openParticleReferenceToolStripMenuItem
-            // 
-            this.openParticleReferenceToolStripMenuItem.Name = "openParticleReferenceToolStripMenuItem";
-            this.openParticleReferenceToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.openParticleReferenceToolStripMenuItem.Text = "Open Particle Reference";
             // 
             // showMenuFileLocationToolStripMenuItem
             // 
@@ -436,17 +288,17 @@
             this.showMenuFileLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.showMenuFileLocationToolStripMenuItem.Text = "Show Menu File Location";
             // 
-            // openTextTreeEditorToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.openTextTreeEditorToolStripMenuItem.Name = "openTextTreeEditorToolStripMenuItem";
-            this.openTextTreeEditorToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.openTextTreeEditorToolStripMenuItem.Text = "Open Text Tree Editor";
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
-            // openPublisherToolStripMenuItem
+            // helpToolStripMenuItem
             // 
-            this.openPublisherToolStripMenuItem.Name = "openPublisherToolStripMenuItem";
-            this.openPublisherToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.openPublisherToolStripMenuItem.Text = "Open Publisher";
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
             // 
             // panel2
             // 
@@ -504,12 +356,11 @@
             // 
             this.panel7.AllowDrop = true;
             this.panel7.Controls.Add(this.progrespanel);
-            this.panel7.Controls.Add(this.button3startLoL);
-            this.panel7.Controls.Add(this.button3lcintegrate);
-            this.panel7.Controls.Add(this.UpdateFL);
+            this.panel7.Controls.Add(this.startLoLButton);
+            this.panel7.Controls.Add(this.webIntegrationButton);
             this.panel7.Controls.Add(this.locateGameClient);
-            this.panel7.Controls.Add(this.exit);
-            this.panel7.Controls.Add(this.button2);
+            this.panel7.Controls.Add(this.exitButton);
+            this.panel7.Controls.Add(this.helpButton);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
@@ -520,23 +371,23 @@
             // 
             // progrespanel
             // 
-            this.progrespanel.Controls.Add(this.label2Percent);
+            this.progrespanel.Controls.Add(this.lbl_progressPercent);
             this.progrespanel.Controls.Add(this.progressBar1);
-            this.progrespanel.Controls.Add(this.buttoncancel);
+            this.progrespanel.Controls.Add(this.cancelProgressButton);
             this.progrespanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progrespanel.Location = new System.Drawing.Point(0, 32);
             this.progrespanel.Name = "progrespanel";
             this.progrespanel.Size = new System.Drawing.Size(819, 22);
             this.progrespanel.TabIndex = 44;
             // 
-            // label2Percent
+            // lbl_progressPercent
             // 
-            this.label2Percent.AutoSize = true;
-            this.label2Percent.Location = new System.Drawing.Point(29, 5);
-            this.label2Percent.Name = "label2Percent";
-            this.label2Percent.Size = new System.Drawing.Size(44, 13);
-            this.label2Percent.TabIndex = 42;
-            this.label2Percent.Text = "Percent";
+            this.lbl_progressPercent.AutoSize = true;
+            this.lbl_progressPercent.Location = new System.Drawing.Point(29, 5);
+            this.lbl_progressPercent.Name = "lbl_progressPercent";
+            this.lbl_progressPercent.Size = new System.Drawing.Size(44, 13);
+            this.lbl_progressPercent.TabIndex = 42;
+            this.lbl_progressPercent.Text = "Percent";
             // 
             // progressBar1
             // 
@@ -546,51 +397,39 @@
             this.progressBar1.Size = new System.Drawing.Size(769, 22);
             this.progressBar1.TabIndex = 40;
             // 
-            // buttoncancel
+            // cancelProgressButton
             // 
-            this.buttoncancel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttoncancel.Location = new System.Drawing.Point(769, 0);
-            this.buttoncancel.Name = "buttoncancel";
-            this.buttoncancel.Size = new System.Drawing.Size(50, 22);
-            this.buttoncancel.TabIndex = 41;
-            this.buttoncancel.Text = "Cancel";
-            this.buttoncancel.UseVisualStyleBackColor = true;
+            this.cancelProgressButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cancelProgressButton.Location = new System.Drawing.Point(769, 0);
+            this.cancelProgressButton.Name = "cancelProgressButton";
+            this.cancelProgressButton.Size = new System.Drawing.Size(50, 22);
+            this.cancelProgressButton.TabIndex = 41;
+            this.cancelProgressButton.Text = "Cancel";
+            this.cancelProgressButton.UseVisualStyleBackColor = true;
             // 
-            // button3startLoL
+            // startLoLButton
             // 
-            this.button3startLoL.AllowDrop = true;
-            this.button3startLoL.Location = new System.Drawing.Point(544, 3);
-            this.button3startLoL.Name = "button3startLoL";
-            this.button3startLoL.Size = new System.Drawing.Size(75, 23);
-            this.button3startLoL.TabIndex = 43;
-            this.button3startLoL.Text = "Start LoL";
-            this.button3startLoL.UseVisualStyleBackColor = true;
-            this.button3startLoL.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button3startLoL.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.startLoLButton.AllowDrop = true;
+            this.startLoLButton.Location = new System.Drawing.Point(544, 3);
+            this.startLoLButton.Name = "startLoLButton";
+            this.startLoLButton.Size = new System.Drawing.Size(75, 23);
+            this.startLoLButton.TabIndex = 43;
+            this.startLoLButton.Text = "Start LoL";
+            this.startLoLButton.UseVisualStyleBackColor = true;
+            this.startLoLButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.startLoLButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button3lcintegrate
+            // webIntegrationButton
             // 
-            this.button3lcintegrate.AllowDrop = true;
-            this.button3lcintegrate.Location = new System.Drawing.Point(233, 3);
-            this.button3lcintegrate.Name = "button3lcintegrate";
-            this.button3lcintegrate.Size = new System.Drawing.Size(153, 23);
-            this.button3lcintegrate.TabIndex = 42;
-            this.button3lcintegrate.Text = "Use with LeagueCraft.com";
-            this.button3lcintegrate.UseVisualStyleBackColor = true;
-            this.button3lcintegrate.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button3lcintegrate.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
-            // 
-            // UpdateFL
-            // 
-            this.UpdateFL.AllowDrop = true;
-            this.UpdateFL.Location = new System.Drawing.Point(90, 3);
-            this.UpdateFL.Name = "UpdateFL";
-            this.UpdateFL.Size = new System.Drawing.Size(120, 23);
-            this.UpdateFL.TabIndex = 35;
-            this.UpdateFL.Text = "Re-Read LoL Files";
-            this.UpdateFL.UseVisualStyleBackColor = true;
-            this.UpdateFL.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.UpdateFL.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.webIntegrationButton.AllowDrop = true;
+            this.webIntegrationButton.Location = new System.Drawing.Point(88, 3);
+            this.webIntegrationButton.Name = "webIntegrationButton";
+            this.webIntegrationButton.Size = new System.Drawing.Size(153, 23);
+            this.webIntegrationButton.TabIndex = 42;
+            this.webIntegrationButton.Text = "Use with LeagueCraft.com";
+            this.webIntegrationButton.UseVisualStyleBackColor = true;
+            this.webIntegrationButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.webIntegrationButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
             // locateGameClient
             // 
@@ -604,31 +443,31 @@
             this.locateGameClient.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.locateGameClient.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // exit
+            // exitButton
             // 
-            this.exit.AllowDrop = true;
-            this.exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.exit.Location = new System.Drawing.Point(758, 3);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(57, 23);
-            this.exit.TabIndex = 20;
-            this.exit.Text = "Exit";
-            this.exit.UseVisualStyleBackColor = true;
-            this.exit.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.exit.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.exitButton.AllowDrop = true;
+            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitButton.Location = new System.Drawing.Point(758, 3);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(57, 23);
+            this.exitButton.TabIndex = 20;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.exitButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button2
+            // helpButton
             // 
-            this.button2.AllowDrop = true;
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(700, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(44, 23);
-            this.button2.TabIndex = 41;
-            this.button2.Text = "Help";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button2.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.helpButton.AllowDrop = true;
+            this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpButton.Location = new System.Drawing.Point(700, 3);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(44, 23);
+            this.helpButton.TabIndex = 41;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.helpButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
             // installSkinsTab
             // 
@@ -655,7 +494,6 @@
             // 
             this.splitContainer1.Panel1.AllowDrop = true;
             this.splitContainer1.Panel1.Controls.Add(this.listView1);
-            this.splitContainer1.Panel1.Controls.Add(this.panel9);
             this.splitContainer1.Panel1.Controls.Add(this.panel8);
             this.splitContainer1.Panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.splitContainer1.Panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
@@ -685,9 +523,9 @@
             this.columnHeader9});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(18, 15);
+            this.listView1.Location = new System.Drawing.Point(0, 15);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(597, 288);
+            this.listView1.Size = new System.Drawing.Size(615, 288);
             this.listView1.TabIndex = 3;
             this.listView1.TileSize = new System.Drawing.Size(2, 2);
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -739,14 +577,6 @@
             // 
             this.columnHeader9.Text = "Character";
             this.columnHeader9.Width = 90;
-            // 
-            // panel9
-            // 
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel9.Location = new System.Drawing.Point(0, 15);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(18, 288);
-            this.panel9.TabIndex = 2;
             // 
             // panel8
             // 
@@ -945,12 +775,13 @@
             // panel10
             // 
             this.panel10.AllowDrop = true;
-            this.panel10.Controls.Add(this.button3);
-            this.panel10.Controls.Add(this.button4);
-            this.panel10.Controls.Add(this.button5);
-            this.panel10.Controls.Add(this.button6);
-            this.panel10.Controls.Add(this.button7);
-            this.panel10.Controls.Add(this.button8);
+            this.panel10.Controls.Add(this.editSkinButton);
+            this.panel10.Controls.Add(this.reinstallTextModsButton);
+            this.panel10.Controls.Add(this.deleteSkinButton);
+            this.panel10.Controls.Add(this.installButton);
+            this.panel10.Controls.Add(this.uninstallButton);
+            this.panel10.Controls.Add(this.createZipFromSkinButton);
+            this.panel10.Controls.Add(this.fixSkinButton);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel10.Location = new System.Drawing.Point(3, 306);
             this.panel10.Name = "panel10";
@@ -959,77 +790,87 @@
             this.panel10.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.panel10.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button3
+            // editSkinButton
             // 
-            this.button3.AllowDrop = true;
-            this.button3.Location = new System.Drawing.Point(166, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(117, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Re-install Text Mods";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button3.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.editSkinButton.AllowDrop = true;
+            this.editSkinButton.Location = new System.Drawing.Point(497, 3);
+            this.editSkinButton.Name = "editSkinButton";
+            this.editSkinButton.Size = new System.Drawing.Size(75, 23);
+            this.editSkinButton.TabIndex = 7;
+            this.editSkinButton.Text = "Edit Skin";
+            this.editSkinButton.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // reinstallTextModsButton
             // 
-            this.button4.AllowDrop = true;
-            this.button4.Location = new System.Drawing.Point(498, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Delete";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button4.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.reinstallTextModsButton.AllowDrop = true;
+            this.reinstallTextModsButton.Location = new System.Drawing.Point(170, 3);
+            this.reinstallTextModsButton.Name = "reinstallTextModsButton";
+            this.reinstallTextModsButton.Size = new System.Drawing.Size(117, 23);
+            this.reinstallTextModsButton.TabIndex = 6;
+            this.reinstallTextModsButton.Text = "Re-install Text Mods";
+            this.reinstallTextModsButton.UseVisualStyleBackColor = true;
+            this.reinstallTextModsButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.reinstallTextModsButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button5
+            // deleteSkinButton
             // 
-            this.button5.AllowDrop = true;
-            this.button5.Location = new System.Drawing.Point(6, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Install";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button5.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.deleteSkinButton.AllowDrop = true;
+            this.deleteSkinButton.Location = new System.Drawing.Point(579, 3);
+            this.deleteSkinButton.Name = "deleteSkinButton";
+            this.deleteSkinButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteSkinButton.TabIndex = 3;
+            this.deleteSkinButton.Text = "Delete";
+            this.deleteSkinButton.UseVisualStyleBackColor = true;
+            this.deleteSkinButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.deleteSkinButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button6
+            // installButton
             // 
-            this.button6.AllowDrop = true;
-            this.button6.Location = new System.Drawing.Point(85, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Uninstall";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button6.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.installButton.AllowDrop = true;
+            this.installButton.Location = new System.Drawing.Point(6, 3);
+            this.installButton.Name = "installButton";
+            this.installButton.Size = new System.Drawing.Size(75, 23);
+            this.installButton.TabIndex = 1;
+            this.installButton.Text = "Install";
+            this.installButton.UseVisualStyleBackColor = true;
+            this.installButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.installButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button7
+            // uninstallButton
             // 
-            this.button7.AllowDrop = true;
-            this.button7.Location = new System.Drawing.Point(289, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 4;
-            this.button7.Text = "Create Zip";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button7.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.uninstallButton.AllowDrop = true;
+            this.uninstallButton.Location = new System.Drawing.Point(88, 3);
+            this.uninstallButton.Name = "uninstallButton";
+            this.uninstallButton.Size = new System.Drawing.Size(75, 23);
+            this.uninstallButton.TabIndex = 2;
+            this.uninstallButton.Text = "Uninstall";
+            this.uninstallButton.UseVisualStyleBackColor = true;
+            this.uninstallButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.uninstallButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // button8
+            // createZipFromSkinButton
             // 
-            this.button8.AllowDrop = true;
-            this.button8.Location = new System.Drawing.Point(378, 3);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(114, 23);
-            this.button8.TabIndex = 5;
-            this.button8.Text = "Fix Skin (Re-path)";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.button8.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.createZipFromSkinButton.AllowDrop = true;
+            this.createZipFromSkinButton.Location = new System.Drawing.Point(294, 3);
+            this.createZipFromSkinButton.Name = "createZipFromSkinButton";
+            this.createZipFromSkinButton.Size = new System.Drawing.Size(75, 23);
+            this.createZipFromSkinButton.TabIndex = 4;
+            this.createZipFromSkinButton.Text = "Create Zip";
+            this.createZipFromSkinButton.UseVisualStyleBackColor = true;
+            this.createZipFromSkinButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.createZipFromSkinButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            // 
+            // fixSkinButton
+            // 
+            this.fixSkinButton.AllowDrop = true;
+            this.fixSkinButton.Location = new System.Drawing.Point(376, 3);
+            this.fixSkinButton.Name = "fixSkinButton";
+            this.fixSkinButton.Size = new System.Drawing.Size(114, 23);
+            this.fixSkinButton.TabIndex = 5;
+            this.fixSkinButton.Text = "Fix Skin (Re-path)";
+            this.fixSkinButton.UseVisualStyleBackColor = true;
+            this.fixSkinButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
+            this.fixSkinButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
             // addNewSkinsTab
             // 
@@ -1080,7 +921,7 @@
             this.panel5.Controls.Add(this.label6);
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.label8);
-            this.panel5.Controls.Add(this.textBoxauthor);
+            this.panel5.Controls.Add(this.authorNameTextbox);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
@@ -1125,15 +966,15 @@
             this.label8.TabIndex = 36;
             this.label8.Text = "Author:";
             // 
-            // textBoxauthor
+            // authorNameTextbox
             // 
-            this.textBoxauthor.Location = new System.Drawing.Point(64, 50);
-            this.textBoxauthor.MaxLength = 50;
-            this.textBoxauthor.Name = "textBoxauthor";
-            this.textBoxauthor.Size = new System.Drawing.Size(228, 20);
-            this.textBoxauthor.TabIndex = 37;
-            this.textBoxauthor.Text = "Unknown";
-            this.textBoxauthor.WordWrap = false;
+            this.authorNameTextbox.Location = new System.Drawing.Point(64, 50);
+            this.authorNameTextbox.MaxLength = 50;
+            this.authorNameTextbox.Name = "authorNameTextbox";
+            this.authorNameTextbox.Size = new System.Drawing.Size(228, 20);
+            this.authorNameTextbox.TabIndex = 37;
+            this.authorNameTextbox.Text = "Unknown";
+            this.authorNameTextbox.WordWrap = false;
             // 
             // panel3
             // 
@@ -1143,7 +984,6 @@
             this.panel3.Controls.Add(this.saveToDb);
             this.panel3.Controls.Add(this.b_IClearAll);
             this.panel3.Controls.Add(this.b_IRemoveFiles);
-            this.panel3.Controls.Add(this.b_IInstallFiles);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel3.Location = new System.Drawing.Point(641, 3);
             this.panel3.Name = "panel3";
@@ -1168,6 +1008,7 @@
             this.addToDBButton.TabIndex = 35;
             this.addToDBButton.Text = "Add to DataBase";
             this.addToDBButton.UseVisualStyleBackColor = true;
+            this.addToDBButton.Click += new System.EventHandler(this.addToDBButton_Click);
             // 
             // addFilesPanel
             // 
@@ -1202,6 +1043,7 @@
             this.b_IAddFiles.TabIndex = 25;
             this.b_IAddFiles.Text = "Add Files";
             this.b_IAddFiles.UseVisualStyleBackColor = true;
+            this.b_IAddFiles.Click += new System.EventHandler(this.b_IAddFiles_Click);
             // 
             // b_IAddDirectory
             // 
@@ -1211,6 +1053,7 @@
             this.b_IAddDirectory.TabIndex = 31;
             this.b_IAddDirectory.Text = "Add Directory";
             this.b_IAddDirectory.UseVisualStyleBackColor = true;
+            this.b_IAddDirectory.Click += new System.EventHandler(this.b_IAddDirectory_Click);
             // 
             // saveToDb
             // 
@@ -1233,6 +1076,7 @@
             this.b_IClearAll.TabIndex = 27;
             this.b_IClearAll.Text = "Clear All";
             this.b_IClearAll.UseVisualStyleBackColor = true;
+            this.b_IClearAll.Click += new System.EventHandler(this.b_IClearAll_Click);
             // 
             // b_IRemoveFiles
             // 
@@ -1242,16 +1086,7 @@
             this.b_IRemoveFiles.TabIndex = 26;
             this.b_IRemoveFiles.Text = "Remove File";
             this.b_IRemoveFiles.UseVisualStyleBackColor = true;
-            // 
-            // b_IInstallFiles
-            // 
-            this.b_IInstallFiles.Location = new System.Drawing.Point(55, 234);
-            this.b_IInstallFiles.Name = "b_IInstallFiles";
-            this.b_IInstallFiles.Size = new System.Drawing.Size(80, 23);
-            this.b_IInstallFiles.TabIndex = 28;
-            this.b_IInstallFiles.Text = "Install Files";
-            this.b_IInstallFiles.UseVisualStyleBackColor = true;
-            this.b_IInstallFiles.Visible = false;
+            this.b_IRemoveFiles.Click += new System.EventHandler(this.b_IRemoveFiles_Click);
             // 
             // tabControl
             // 
@@ -1294,7 +1129,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.label10);
-            this.splitContainer4.Panel2.Controls.Add(this.button3exporttree);
+            this.splitContainer4.Panel2.Controls.Add(this.treeExportButton);
             this.splitContainer4.Size = new System.Drawing.Size(805, 334);
             this.splitContainer4.SplitterDistance = 302;
             this.splitContainer4.TabIndex = 0;
@@ -1312,11 +1147,11 @@
             this.treeView1.ItemHeight = 16;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode3.Name = "Please Wait";
-            treeNode3.Text = "Please wait for the progress bar to finish loading bellow...";
-            treeNode3.ToolTipText = "Please wait...";
+            treeNode1.Name = "Please Wait";
+            treeNode1.Text = "Please wait for the progress bar to finish loading bellow...";
+            treeNode1.ToolTipText = "Please wait...";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.treeView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(805, 302);
@@ -1331,14 +1166,14 @@
             this.label10.TabIndex = 2;
             this.label10.Text = "Items are colored by version, green is new, red is old";
             // 
-            // button3exporttree
+            // treeExportButton
             // 
-            this.button3exporttree.Location = new System.Drawing.Point(27, 2);
-            this.button3exporttree.Name = "button3exporttree";
-            this.button3exporttree.Size = new System.Drawing.Size(239, 23);
-            this.button3exporttree.TabIndex = 1;
-            this.button3exporttree.Text = "Export Checked Files to Computer Directory";
-            this.button3exporttree.UseVisualStyleBackColor = true;
+            this.treeExportButton.Location = new System.Drawing.Point(27, 2);
+            this.treeExportButton.Name = "treeExportButton";
+            this.treeExportButton.Size = new System.Drawing.Size(239, 23);
+            this.treeExportButton.TabIndex = 1;
+            this.treeExportButton.Text = "Export Checked Files to Computer Directory";
+            this.treeExportButton.UseVisualStyleBackColor = true;
             // 
             // skinInstaller
             // 
@@ -1419,48 +1254,29 @@
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registerAppForWebUrlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moreDebugToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem getVersionFilePathToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem readVersionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem getLastModDateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem soundFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem repathAllFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showDebugToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem imagesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iAmLGGToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem iCantStandLGGToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewStatsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem wtfRainbowsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setSoundFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getProgramLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetCharacterIconsCacheToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem useDDSVersionReaderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem testReadResFilesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unpackSoundsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loLViewerOpenNotPreviewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openParticleReferenceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showMenuFileLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openTextTreeEditorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openPublisherToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelGL;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBoxCount;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel progrespanel;
-        private System.Windows.Forms.Label label2Percent;
+        private System.Windows.Forms.Label lbl_progressPercent;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Button buttoncancel;
-        private System.Windows.Forms.Button button3startLoL;
-        private System.Windows.Forms.Button button3lcintegrate;
-        private System.Windows.Forms.Button UpdateFL;
+        private System.Windows.Forms.Button cancelProgressButton;
+        private System.Windows.Forms.Button startLoLButton;
+        private System.Windows.Forms.Button webIntegrationButton;
         private System.Windows.Forms.Button locateGameClient;
-        private System.Windows.Forms.Button exit;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.TabPage installSkinsTab;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListView listView1;
@@ -1473,7 +1289,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.CheckBox checkBox1dispCharacter;
         private System.Windows.Forms.CheckBox checkBox1dispDateInstalledFull;
@@ -1489,12 +1304,12 @@
         private System.Windows.Forms.Label labelSkinName;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button reinstallTextModsButton;
+        private System.Windows.Forms.Button deleteSkinButton;
+        private System.Windows.Forms.Button installButton;
+        private System.Windows.Forms.Button uninstallButton;
+        private System.Windows.Forms.Button createZipFromSkinButton;
+        private System.Windows.Forms.Button fixSkinButton;
         private System.Windows.Forms.TabPage addNewSkinsTab;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ListBox installFiles_ListBox;
@@ -1503,7 +1318,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxauthor;
+        private System.Windows.Forms.TextBox authorNameTextbox;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel AddToDatabasePanel;
         private System.Windows.Forms.Button addToDBButton;
@@ -1514,13 +1329,13 @@
         private System.Windows.Forms.CheckBox saveToDb;
         private System.Windows.Forms.Button b_IClearAll;
         private System.Windows.Forms.Button b_IRemoveFiles;
-        private System.Windows.Forms.Button b_IInstallFiles;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage skinCreationTab;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button3exporttree;
+        private System.Windows.Forms.Button treeExportButton;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Button editSkinButton;
     }
 }
 
