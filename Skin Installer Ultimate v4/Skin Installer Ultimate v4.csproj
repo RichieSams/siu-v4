@@ -141,7 +141,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\7z.dll" />
+    <Content Include="Resources\7z.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="siu.ico" />
   </ItemGroup>
   <ItemGroup>
