@@ -70,5 +70,29 @@ namespace SkinInstaller.Properties {
                 this["lastSelectedTab"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int replaceSkinWarning {
+            get {
+                return ((int)(this["replaceSkinWarning"]));
+            }
+            set {
+                this["replaceSkinWarning"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int replaceFolderWarning {
+            get {
+                return ((int)(this["replaceFolderWarning"]));
+            }
+            set {
+                this["replaceFolderWarning"] = value;
+            }
+        }
     }
 }

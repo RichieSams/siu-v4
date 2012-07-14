@@ -59,12 +59,5 @@ namespace SkinInstaller.Properties {
                 resourceCulture = value;
             }
         }
-        
-        internal static byte[] _7z {
-            get {
-                object obj = ResourceManager.GetObject("_7z", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }
