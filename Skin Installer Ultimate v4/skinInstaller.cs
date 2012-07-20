@@ -14,6 +14,7 @@ using System.Threading;
 using System.Globalization;
 using SevenZip;
 using System.Data.SQLite;
+using System.Diagnostics;
 
 using RAFlibPlus;
 using ItzWarty;
@@ -24,7 +25,7 @@ namespace SkinInstaller
     public partial class skinInstaller : Form
     {
         #region Variables
-
+        
         private string euGameDirectory = @"C:\Program Files\League of Legends\";
         private string euGameDirectory64 = @"C:\Program Files (x86)\League of Legends\";
         private string usGameDirectory = @"C:\Riot Games\League of Legends\";
@@ -42,6 +43,8 @@ namespace SkinInstaller
         private List<String> airFiles = new List<String>();
         String airFileLocation = String.Empty;
 
+        Stopwatch timer = new Stopwatch();
+
         String lastFolderPath = String.Empty;
 
         #endregion // Variables
@@ -58,6 +61,8 @@ namespace SkinInstaller
 
         private void skinInstaller_Load(object sender, EventArgs e)
         {
+            timer.Start();
+
             if (Application.StartupPath.Length > 160)
             {
                 Cliver.Message.Inform("The path that this program is running from\n\"" +
@@ -94,7 +99,7 @@ namespace SkinInstaller
             // Need to ask Greg to add a version.ini
             //
             //
-            MessageBox.Show(Application.ProductVersion.ToString());
+            //MessageBox.Show(Application.ProductVersion.ToString());
 
             // Initialize the database
             database = new SQLiteDatabase(Application.StartupPath + @"\skins.s3db");
@@ -129,7 +134,7 @@ namespace SkinInstaller
                 fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\");
 
             // Find League installation
-            if (Properties.Settings.Default.gameDir != "" && (File.Exists(Properties.Settings.Default.gameDir + "lol.launcher.exe") || File.Exists(Properties.Settings.Default.gameDir + "league of legends.exe")))
+            if (Properties.Settings.Default.gameDir != "" && (File.Exists(Properties.Settings.Default.gameDir + "lol.launcher.exe") || File.Exists(Properties.Settings.Default.gameDir + "league of legends.exe"))) // I think league of legends.exe is garena users
             {
                 gameDirectory = Properties.Settings.Default.gameDir;
             }
@@ -204,7 +209,17 @@ namespace SkinInstaller
             else
             {
                 // Load raf files
-                rafFiles = new RAFMasterFileList(gameDirectory + @"RADS\projects\lol_game_client\filearchives");
+                try 
+                {
+                    rafFiles = new RAFMasterFileList(gameDirectory + @"RADS\projects\lol_game_client\filearchives");
+                }
+                catch (InvalidOperationException err)
+                {
+                    Cliver.Message.Show(SystemIcons.Error, err.Message, 0, new string[1] {"OK"});
+                }
+
+                if (rafFiles.FileDictFull.Count == 0)
+                    Cliver.Message.Show(SystemIcons.Error, "No RAF files were found. Make sure your League of Lengends is installed correctly. If it is, contact us", 0, new String[1] { "OK" });
 
                 // Load Air files
                 airFileLocation = Directory.GetDirectories(gameDirectory + @"RADS\projects\lol_air_client\releases").Last();
@@ -218,6 +233,8 @@ namespace SkinInstaller
 
             // Update the list view
             updateListView();
+
+            timer.Stop();
 
             this.Focus();
         }
@@ -300,14 +317,7 @@ namespace SkinInstaller
                 folderDialog.SelectedPath = lastFolderPath;
             if (folderDialog.ShowDialog() == DialogResult.OK)
             {
-                List<String> usable = new List<String>();
-
-                string[] fileArray = Directory.GetFiles(folderDialog.SelectedPath, "*", SearchOption.AllDirectories);
-                foreach (string path in fileArray)
-                {
-                    usable.Add(path);
-                }
-                processAddedFiles(usable);
+                processAddedFiles(Directory.GetFiles(folderDialog.SelectedPath, "*", SearchOption.AllDirectories).ToList());
 
                 lastFolderPath = folderDialog.SelectedPath;
             }
@@ -621,9 +631,12 @@ namespace SkinInstaller
                 if (table == null)
                 {
                     int replace = Properties.Settings.Default.replaceSkinWarning;
+                    Boolean askedUser = false;
+
                     if (replace == -1)
                     {
                         bool saveThis = false;
+                        askedUser = true;
 
                         replace = Cliver.Message.Show("Replace Skin?",
                             SystemIcons.Information,out saveThis,
@@ -640,14 +653,24 @@ namespace SkinInstaller
                         uninstallSkin(skinNameTextbox.Text);
                         deleteSkin(skinNameTextbox.Text);
                     }
+                    else
+                    {
+                        if (!askedUser)
+                            Cliver.Message.Show(SystemIcons.Error, "A skin with this name is already installed. Choose a new name", 0, new String[1] { "OK" });
+                        return;
+                    }
                 }
                 // Not in the database but the folder exists
                 else
                 {
                     int repFold = Properties.Settings.Default.replaceFolderWarning;
+                    Boolean askedUser = false;
+
                     if (repFold == -1)
                     {
                         bool saveThis = false;
+                        askedUser = true;
+
                         repFold = Cliver.Message.Show("Replace Folder",
                             SystemIcons.Information, out saveThis,
                             "A folder with this name already exists\r\n" +
@@ -659,18 +682,26 @@ namespace SkinInstaller
                     }
                     if (repFold == 1)
                     {
+                        if (!askedUser)
+                            Cliver.Message.Show(SystemIcons.Error, "A skin folder with this name is already exists. Choose a new name", 0, new String[1] { "OK" });
                         return;
                     }
                     else
                     {
                         //clear that folder and contiunue
                         fileHandler.DirectoryDelete(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text);
-
                     }
                 }
             }
 
             // Create database skin entry
+            //
+            //
+            //
+            // Can just do a stright insert once skinInstall/skinDelete methods are written
+            //
+            //
+            //
             DataTable dataTable = database.Query("SELECT SkinID FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
             if (dataTable == null)
             {
@@ -682,6 +713,7 @@ namespace SkinInstaller
                 database.ExecuteNonQuery("DELETE FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
                 database.ExecuteNonQuery("INSERT INTO skins (Name, Author) VALUES ('" + skinNameTextbox.Text + "', '" + authorNameTextbox.Text + "')");
             }
+
             dataTable = database.Query("SELECT SkinID FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
             int skinID = int.Parse(dataTable.Rows[0][0].ToString());
 
