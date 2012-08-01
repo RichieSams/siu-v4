@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(skinInstaller));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editInstallPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,19 +67,15 @@
             this.installSkinsTab = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.skinDatabaseListView = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spacer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.skinTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.author = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fileCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.installed = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.added = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.character = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel8 = new System.Windows.Forms.Panel();
             this.checkBox1dispCharacter = new System.Windows.Forms.CheckBox();
-            this.checkBox1dispDateInstalledFull = new System.Windows.Forms.CheckBox();
-            this.checkBox1dispDateAddedFull = new System.Windows.Forms.CheckBox();
             this.checkBox1dispDateAdded = new System.Windows.Forms.CheckBox();
             this.checkBox1dispInstalled = new System.Windows.Forms.CheckBox();
             this.checkBox1dispFileCount = new System.Windows.Forms.CheckBox();
@@ -512,15 +508,13 @@
             this.skinDatabaseListView.AutoArrange = false;
             this.skinDatabaseListView.CheckBoxes = true;
             this.skinDatabaseListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9});
+            this.spacer,
+            this.skinTitle,
+            this.author,
+            this.fileCount,
+            this.installed,
+            this.added,
+            this.character});
             this.skinDatabaseListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.skinDatabaseListView.GridLines = true;
             this.skinDatabaseListView.Location = new System.Drawing.Point(0, 15);
@@ -533,56 +527,43 @@
             this.skinDatabaseListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.skinDatabaseListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // columnHeader1
+            // spacer
             // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 20;
+            this.spacer.Text = "";
+            this.spacer.Width = 20;
             // 
-            // columnHeader2
+            // skinTitle
             // 
-            this.columnHeader2.Text = "Skin Title";
-            this.columnHeader2.Width = 190;
+            this.skinTitle.Text = "Skin Title";
+            this.skinTitle.Width = 190;
             // 
-            // columnHeader3
+            // author
             // 
-            this.columnHeader3.Text = "Author";
-            this.columnHeader3.Width = 100;
+            this.author.Text = "Author";
+            this.author.Width = 100;
             // 
-            // columnHeader4
+            // fileCount
             // 
-            this.columnHeader4.Text = "File Count";
-            this.columnHeader4.Width = 69;
+            this.fileCount.Text = "File Count";
             // 
-            // columnHeader5
+            // installed
             // 
-            this.columnHeader5.Text = "Installed";
-            this.columnHeader5.Width = 75;
+            this.installed.Text = "Installed";
+            this.installed.Width = 75;
             // 
-            // columnHeader6
+            // added
             // 
-            this.columnHeader6.Text = "Added";
-            this.columnHeader6.Width = 75;
+            this.added.Text = "Added";
+            this.added.Width = 75;
             // 
-            // columnHeader7
+            // character
             // 
-            this.columnHeader7.Text = "Date and Time Added";
-            this.columnHeader7.Width = 0;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Date and Time Installed";
-            this.columnHeader8.Width = 0;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Character";
-            this.columnHeader9.Width = 82;
+            this.character.Text = "Character";
+            this.character.Width = 91;
             // 
             // panel8
             // 
             this.panel8.Controls.Add(this.checkBox1dispCharacter);
-            this.panel8.Controls.Add(this.checkBox1dispDateInstalledFull);
-            this.panel8.Controls.Add(this.checkBox1dispDateAddedFull);
             this.panel8.Controls.Add(this.checkBox1dispDateAdded);
             this.panel8.Controls.Add(this.checkBox1dispInstalled);
             this.panel8.Controls.Add(this.checkBox1dispFileCount);
@@ -600,101 +581,83 @@
             this.checkBox1dispCharacter.AutoSize = true;
             this.checkBox1dispCharacter.Checked = true;
             this.checkBox1dispCharacter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispCharacter.Location = new System.Drawing.Point(507, 1);
+            this.checkBox1dispCharacter.Location = new System.Drawing.Point(335, -1);
             this.checkBox1dispCharacter.Name = "checkBox1dispCharacter";
             this.checkBox1dispCharacter.Size = new System.Drawing.Size(72, 17);
             this.checkBox1dispCharacter.TabIndex = 8;
             this.checkBox1dispCharacter.Text = "Character";
             this.checkBox1dispCharacter.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1dispDateInstalledFull
-            // 
-            this.checkBox1dispDateInstalledFull.AutoSize = true;
-            this.checkBox1dispDateInstalledFull.Checked = true;
-            this.checkBox1dispDateInstalledFull.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispDateInstalledFull.Location = new System.Drawing.Point(420, 1);
-            this.checkBox1dispDateInstalledFull.Name = "checkBox1dispDateInstalledFull";
-            this.checkBox1dispDateInstalledFull.Size = new System.Drawing.Size(91, 17);
-            this.checkBox1dispDateInstalledFull.TabIndex = 7;
-            this.checkBox1dispDateInstalledFull.Text = "Time Installed";
-            this.checkBox1dispDateInstalledFull.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1dispDateAddedFull
-            // 
-            this.checkBox1dispDateAddedFull.AutoSize = true;
-            this.checkBox1dispDateAddedFull.Checked = true;
-            this.checkBox1dispDateAddedFull.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispDateAddedFull.Location = new System.Drawing.Point(342, 1);
-            this.checkBox1dispDateAddedFull.Name = "checkBox1dispDateAddedFull";
-            this.checkBox1dispDateAddedFull.Size = new System.Drawing.Size(83, 17);
-            this.checkBox1dispDateAddedFull.TabIndex = 6;
-            this.checkBox1dispDateAddedFull.Text = "Time Added";
-            this.checkBox1dispDateAddedFull.UseVisualStyleBackColor = true;
+            this.checkBox1dispCharacter.CheckedChanged += new System.EventHandler(this.checkBox1dispCharacter_CheckedChanged);
             // 
             // checkBox1dispDateAdded
             // 
             this.checkBox1dispDateAdded.AutoSize = true;
             this.checkBox1dispDateAdded.Checked = true;
             this.checkBox1dispDateAdded.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispDateAdded.Location = new System.Drawing.Point(265, 1);
+            this.checkBox1dispDateAdded.Location = new System.Drawing.Point(278, -1);
             this.checkBox1dispDateAdded.Name = "checkBox1dispDateAdded";
-            this.checkBox1dispDateAdded.Size = new System.Drawing.Size(83, 17);
+            this.checkBox1dispDateAdded.Size = new System.Drawing.Size(57, 17);
             this.checkBox1dispDateAdded.TabIndex = 5;
-            this.checkBox1dispDateAdded.Text = "Date Added";
+            this.checkBox1dispDateAdded.Text = "Added";
             this.checkBox1dispDateAdded.UseVisualStyleBackColor = true;
+            this.checkBox1dispDateAdded.CheckedChanged += new System.EventHandler(this.checkBox1dispDateAdded_CheckedChanged);
             // 
             // checkBox1dispInstalled
             // 
             this.checkBox1dispInstalled.AutoSize = true;
             this.checkBox1dispInstalled.Checked = true;
             this.checkBox1dispInstalled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispInstalled.Location = new System.Drawing.Point(204, 1);
+            this.checkBox1dispInstalled.Location = new System.Drawing.Point(213, -1);
             this.checkBox1dispInstalled.Name = "checkBox1dispInstalled";
             this.checkBox1dispInstalled.Size = new System.Drawing.Size(65, 17);
             this.checkBox1dispInstalled.TabIndex = 4;
             this.checkBox1dispInstalled.Text = "Installed";
             this.checkBox1dispInstalled.UseVisualStyleBackColor = true;
+            this.checkBox1dispInstalled.CheckedChanged += new System.EventHandler(this.checkBox1dispInstalled_CheckedChanged);
             // 
             // checkBox1dispFileCount
             // 
             this.checkBox1dispFileCount.AutoSize = true;
             this.checkBox1dispFileCount.Checked = true;
             this.checkBox1dispFileCount.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispFileCount.Location = new System.Drawing.Point(134, 1);
+            this.checkBox1dispFileCount.Location = new System.Drawing.Point(140, -1);
             this.checkBox1dispFileCount.Name = "checkBox1dispFileCount";
             this.checkBox1dispFileCount.Size = new System.Drawing.Size(73, 17);
             this.checkBox1dispFileCount.TabIndex = 3;
             this.checkBox1dispFileCount.Text = "File Count";
             this.checkBox1dispFileCount.UseVisualStyleBackColor = true;
+            this.checkBox1dispFileCount.CheckedChanged += new System.EventHandler(this.checkBox1dispFileCount_CheckedChanged);
             // 
             // checkBox1dispAuthor
             // 
             this.checkBox1dispAuthor.AutoSize = true;
             this.checkBox1dispAuthor.Checked = true;
             this.checkBox1dispAuthor.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispAuthor.Location = new System.Drawing.Point(78, 1);
+            this.checkBox1dispAuthor.Location = new System.Drawing.Point(83, -1);
             this.checkBox1dispAuthor.Name = "checkBox1dispAuthor";
             this.checkBox1dispAuthor.Size = new System.Drawing.Size(57, 17);
             this.checkBox1dispAuthor.TabIndex = 2;
             this.checkBox1dispAuthor.Text = "Author";
             this.checkBox1dispAuthor.UseVisualStyleBackColor = true;
+            this.checkBox1dispAuthor.CheckedChanged += new System.EventHandler(this.checkBox1dispAuthor_CheckedChanged);
             // 
             // checkBox1dispTitle
             // 
             this.checkBox1dispTitle.AutoSize = true;
             this.checkBox1dispTitle.Checked = true;
             this.checkBox1dispTitle.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1dispTitle.Location = new System.Drawing.Point(36, 1);
+            this.checkBox1dispTitle.Location = new System.Drawing.Point(37, -1);
             this.checkBox1dispTitle.Name = "checkBox1dispTitle";
             this.checkBox1dispTitle.Size = new System.Drawing.Size(46, 17);
             this.checkBox1dispTitle.TabIndex = 1;
             this.checkBox1dispTitle.Text = "Title";
             this.checkBox1dispTitle.UseVisualStyleBackColor = true;
+            this.checkBox1dispTitle.CheckedChanged += new System.EventHandler(this.checkBox1dispTitle_CheckedChanged);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(0, 1);
+            this.label9.Location = new System.Drawing.Point(0, -1);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 13);
             this.label9.TabIndex = 0;
@@ -1147,11 +1110,11 @@
             this.treeView1.ItemHeight = 16;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Please Wait";
-            treeNode1.Text = "Please wait for the progress bar to finish loading bellow...";
-            treeNode1.ToolTipText = "Please wait...";
+            treeNode7.Name = "Please Wait";
+            treeNode7.Text = "Please wait for the progress bar to finish loading bellow...";
+            treeNode7.ToolTipText = "Please wait...";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode7});
             this.treeView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(805, 302);
@@ -1280,25 +1243,12 @@
         private System.Windows.Forms.TabPage installSkinsTab;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListView skinDatabaseListView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.CheckBox checkBox1dispCharacter;
-        private System.Windows.Forms.CheckBox checkBox1dispDateInstalledFull;
-        private System.Windows.Forms.CheckBox checkBox1dispDateAddedFull;
-        private System.Windows.Forms.CheckBox checkBox1dispDateAdded;
-        private System.Windows.Forms.CheckBox checkBox1dispInstalled;
-        private System.Windows.Forms.CheckBox checkBox1dispFileCount;
-        private System.Windows.Forms.CheckBox checkBox1dispAuthor;
-        private System.Windows.Forms.CheckBox checkBox1dispTitle;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ColumnHeader spacer;
+        private System.Windows.Forms.ColumnHeader skinTitle;
+        private System.Windows.Forms.ColumnHeader author;
+        private System.Windows.Forms.ColumnHeader fileCount;
+        private System.Windows.Forms.ColumnHeader added;
+        private System.Windows.Forms.ColumnHeader character;
         private System.Windows.Forms.SplitContainer splitContainer6;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label labelSkinName;
@@ -1336,6 +1286,15 @@
         private System.Windows.Forms.Button treeExportButton;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button editSkinButton;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.CheckBox checkBox1dispCharacter;
+        private System.Windows.Forms.CheckBox checkBox1dispDateAdded;
+        private System.Windows.Forms.CheckBox checkBox1dispInstalled;
+        private System.Windows.Forms.CheckBox checkBox1dispFileCount;
+        private System.Windows.Forms.CheckBox checkBox1dispAuthor;
+        private System.Windows.Forms.CheckBox checkBox1dispTitle;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ColumnHeader installed;
     }
 }
 

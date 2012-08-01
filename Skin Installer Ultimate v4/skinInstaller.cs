@@ -20,6 +20,8 @@ using RAFlibPlus;
 using ItzWarty;
 using zlib = ComponentAce.Compression.Libs.zlib;
 
+using LOLViewer;
+
 namespace SkinInstaller
 {
     public partial class skinInstaller : Form
@@ -107,19 +109,12 @@ namespace SkinInstaller
             // Create the database if it doesn't exist
             if (!File.Exists(Application.StartupPath + @"\skins.s3db"))
             {
-                database.ExecuteNonQuery(@"CREATE TABLE [skinFiles] (
-                                                [FileID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                                [SkinID] INTEGER  NULL,
-                                                [Path] VARCHAR(200)  NULL
-                                                );
-
-                                           CREATE TABLE [skins] (
-                                                [SkinID] INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
-                                                [Name] VARCHAR(50)  UNIQUE NULL,
+                database.ExecuteNonQuery(@"CREATE TABLE [skins] (
+                                                [Name] VARCHAR(50)  PRIMARY KEY NOT NULL,
                                                 [Author] VARCHAR(50)  NULL,
-                                                [Installed] BOOLEAN DEFAULT '0' NULL,
                                                 [DateInstalled] TIMESTAMP  NULL,
-                                                [DateAdded] TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL
+                                                [DateAdded] TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
+                                                [Character] VARCHAR(50)  NULL
                                                 );");
             }
 
@@ -250,6 +245,8 @@ namespace SkinInstaller
 
         #region Adding files to new skins
 
+        #region GUI functions
+
         private void skinInstaller_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -348,6 +345,8 @@ namespace SkinInstaller
                     this.fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
             }
         }
+
+        #endregion // GUI functions
 
         private void processAddedFiles(List<String> addedFiles)
         {
@@ -461,7 +460,7 @@ namespace SkinInstaller
                 if (location != null)
                 {
                     installFiles_ListBox.Items.Add(location);
-                    fileHandler.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location.Replace('/', '\\'));
+                    fileHandler.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location);
                 }
                 else
                     skippedFiles.Add(file);
@@ -528,7 +527,7 @@ namespace SkinInstaller
             if (filePath.ToLower().Contains("animations.list") || filePath.ToLower().Contains("animations.ini"))
             {
                 // this is guna break stuff, dont do it!
-                Cliver.Message.Inform("Animations.list and animationos.ini files are known to break a LoL install. File will be skipped.");
+                Cliver.Message.Inform("Animations.list and animations.ini files are known to break a LoL install. File will be skipped.");
                 return null;
             }
 
@@ -540,7 +539,7 @@ namespace SkinInstaller
             if (rafFiles.FileDictShort.ContainsKey(fi.Name.ToLower()))
             {
                 foreach (RAFFileListEntry entry in rafFiles.FileDictShort[fi.Name.ToLower()])
-                    options.Add(entry.FileName);
+                    options.Add("RAFFiles\\" + entry.FileName.Replace('/', '\\'));
             }
 
             // Search Air files
@@ -572,7 +571,7 @@ namespace SkinInstaller
                 List<String> remaining = new List<String>();
                 foreach (String file in options)
                 {
-                    String[] filePath = file.Split('/');
+                    String[] filePath = file.Split('\\');
                     if (parentDirectory.Name.ToLower() == filePath[filePath.Length - counter].ToLower())
                     {
                         remaining.Add(file);
@@ -694,38 +693,23 @@ namespace SkinInstaller
                 }
             }
 
-            // Create database skin entry
-            //
-            //
-            //
-            // Can just do a stright insert once skinInstall/skinDelete methods are written
-            //
-            //
-            //
-            DataTable dataTable = database.Query("SELECT SkinID FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
-            if (dataTable == null)
-            {
-                database.ExecuteNonQuery("INSERT INTO skins (Name, Author) VALUES ('" + skinNameTextbox.Text + "', '" + authorNameTextbox.Text + "')");
-            }
-            else
-            {
-                database.ExecuteNonQuery("DELETE FROM skinFiles WHERE SkinID=" + dataTable.Rows[0][0].ToString());
-                database.ExecuteNonQuery("DELETE FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
-                database.ExecuteNonQuery("INSERT INTO skins (Name, Author) VALUES ('" + skinNameTextbox.Text + "', '" + authorNameTextbox.Text + "')");
-            }
-
-            dataTable = database.Query("SELECT SkinID FROM skins WHERE Name='" + skinNameTextbox.Text + "'");
-            int skinID = int.Parse(dataTable.Rows[0][0].ToString());
-
-            // Move files and create an entry for them
-            String insertString = "INSERT INTO skinFiles (SkinID, Path) VALUES ";
+            // Move files and simultaneously figure out character
+            String character = String.Empty;
             foreach (String item in installFiles_ListBox.Items)
             {
                 fileHandler.FileMove(Application.StartupPath + @"\filesToBeInstalled\" + item.Replace('/', '\\'), Application.StartupPath + @"\Skins\" + skinNameTextbox.Text + @"\" + item.Replace('/', '\\'));
-                insertString += "('" + skinID + "', '" + item + "'), ";
+
+                if (character == String.Empty)
+                {
+                    if (item.ToLower().Contains("data/characters"))
+                        character = item.Split('/')[2];
+                    else if (item.ToLower().Contains(@"assets\images\champions"))
+                        character = splitAtUpperCase(item.Substring(item.IndexOf(@"assets\images\champions") + 23).Split('_')[0]);
+                }
             }
-            insertString = insertString.Remove(insertString.Length - 2);
-            database.ExecuteNonQuery(insertString);
+
+            // Insert into sqlite db
+            database.ExecuteNonQuery("INSERT INTO skins (Name, Author, Character) VALUES ('" + skinNameTextbox.Text + "', '" + authorNameTextbox.Text + "', '" + character + "')");
 
             // Update the list view
             updateListView();
@@ -758,28 +742,142 @@ namespace SkinInstaller
             fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\");
         }
 
-        private void updateListView()
+        String splitAtUpperCase(String input)
         {
-            DataTable table = database.Query("SELECT s.Installed, s.Name, s.Author, (SELECT COUNT(f.FileID) FROM skinFiles AS f WHERE SkinID=s.SkinID ), s.DateInstalled, s.DateAdded FROM skins AS s");
-            skinDatabaseListView.Items.Clear();
-            foreach (DataRow row in table.Rows)
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 1; i < input.Length; i++)
             {
-                ListViewItem item = new ListViewItem();
-                if (row[0].ToString() == "1")
-                    item.Font = new Font(item.Font, FontStyle.Bold);
-                for (int i = 1; i < table.Columns.Count; i++)
-                {
-                    item.SubItems.Add(row[i].ToString());
-                }
-                skinDatabaseListView.Items.Add(item);
+                if (Char.IsUpper(input[i]) && Char.IsLower(input[i - 1]))
+                    sb.Append(' ');
+                sb.Append(input[i]);
             }
+            return sb.ToString();
         }
 
         #endregion // Adding files to new skins
 
+        #region Skin Database GUI functions
+
+        private void updateListView()
+        {
+            DataTable table = database.Query("SELECT Name, Author, STRFTIME('%m/%d/%Y', DateInstalled, 'localtime'), STRFTIME('%m/%d/%Y', DateAdded, 'localtime'), Character FROM skins");
+            skinDatabaseListView.Items.Clear();
+            if (table != null)
+            {
+                foreach (DataRow row in table.Rows)
+                {
+                    ListViewItem item = new ListViewItem();
+                    if (row[2].ToString() != "")
+                        item.Font = new Font(item.Font, FontStyle.Bold);
+                    item.SubItems.Add(row[0].ToString());
+                    item.SubItems.Add(row[1].ToString());
+                    item.SubItems.Add(Directory.GetFiles(Application.StartupPath + @"\Skins\" + row[0].ToString()).Count().ToString());
+                    item.SubItems.Add(row[2].ToString());
+                    item.SubItems.Add(row[3].ToString());
+                    item.SubItems.Add(row[4].ToString());
+
+                    skinDatabaseListView.Items.Add(item);
+                }
+            }
+        }
+
+        private void checkBox1dispTitle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+                skinDatabaseListView.Columns[1].Width = 190;
+            else
+                skinDatabaseListView.Columns[1].Width = 0;
+        }
+
+        private void checkBox1dispAuthor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+                skinDatabaseListView.Columns[2].Width = 100;
+            else
+                skinDatabaseListView.Columns[2].Width = 0;
+        }
+
+        private void checkBox1dispFileCount_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+                skinDatabaseListView.Columns[3].Width = 60;
+            else
+                skinDatabaseListView.Columns[3].Width = 0;
+        }
+
+        private void checkBox1dispInstalled_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+                skinDatabaseListView.Columns[4].Width = 75;
+            else
+                skinDatabaseListView.Columns[4].Width = 0;
+        }
+
+        private void checkBox1dispDateAdded_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+                skinDatabaseListView.Columns[5].Width = 75;
+            else
+                skinDatabaseListView.Columns[5].Width = 0;
+        }
+
+        private void checkBox1dispCharacter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+                skinDatabaseListView.Columns[6].Width = 91;
+            else
+                skinDatabaseListView.Columns[6].Width = 0;
+        }
+
+        #endregion // Skin Database GUI functions
+
         #region Installation
 
         private void installSkin(String skinName)
+        {
+            // Get the files to install
+            String[] files = Directory.GetFiles(Application.StartupPath + @"\Skins\" + skinName);
+
+            // List of RAFArchives that are used so I know which .raf files to rebuild after injection
+            List<RAFArchive> usedRAFArchives = new List<RAFArchive>();
+
+            foreach (String file in files)
+            {
+                // Chop off startup path and Skins/<Skin Name>)
+                String cleanPath = file.Substring((Application.StartupPath + @"\Skins\" + skinName).Length);
+
+                // RAF file
+                if (cleanPath.ToLower().Contains("raffiles"))
+                {
+                    cleanPath = cleanPath.Replace('\\', '/').Substring(9); // Substring chops off 'RAFFiles\'
+                    RAFFileListEntry entry = rafFiles.FileDictFull[cleanPath];
+                    if (entry == null)
+                        continue;
+
+                    usedRAFArchives.Add(entry.RAFArchive);
+                    entry.ReplaceContent(File.ReadAllBytes(file));
+                }                
+                // Air file
+                else if (cleanPath.ToLower().Contains("airfiles"))
+                {
+
+                }
+                // Text Mod
+                else if (cleanPath.ToLower().Contains("textmods"))
+                {
+
+                }                
+            }
+
+            // Rebuild .raf files that were changed
+            foreach (RAFArchive archive in usedRAFArchives)
+            {
+                archive.SaveRAFFile();
+            }
+        }
+
+        void backupFile(String fileName)
         {
 
         }
@@ -795,6 +893,10 @@ namespace SkinInstaller
         }
 
         #endregion // Installation
+
+        
+        
+        
 
     }
 }

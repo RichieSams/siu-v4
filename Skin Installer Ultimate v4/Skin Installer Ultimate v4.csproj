@@ -77,13 +77,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="wLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\RAFlib-Plus\bin\Debug\wLib.dll</HintPath>
+    <Reference Include="wLib">
+      <HintPath>..\Third Party\RAFlib-Plus\bin\Debug\wLib.dll</HintPath>
     </Reference>
-    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\RAFlib-Plus\bin\Debug\zlib.net.dll</HintPath>
+    <Reference Include="zlib.net">
+      <HintPath>..\Third Party\RAFlib-Plus\bin\Debug\zlib.net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +139,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Third Party\LoLModelViewer\LOLViewer\LOLViewer.csproj">
+      <Project>{30DAB98B-9CBD-4FEB-808F-144A554AA18C}</Project>
+      <Name>LOLViewer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Third Party\MessageForm\MessageForm.csproj">
       <Project>{6E7D9609-B82F-48A9-8E79-7E3340855AD6}</Project>
       <Name>MessageForm</Name>
