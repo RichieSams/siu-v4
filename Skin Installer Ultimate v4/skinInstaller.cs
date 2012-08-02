@@ -44,6 +44,8 @@ namespace SkinInstaller
         private RAFMasterFileList rafFiles;
         private List<String> airFiles = new List<String>();
         String airFileLocation = String.Empty;
+        // Made this global so I don't have to continually pass it from function to function
+        List<RAFArchive> usedRAFArchives;
 
         Stopwatch timer = new Stopwatch();
 
@@ -702,7 +704,7 @@ namespace SkinInstaller
                 if (character == String.Empty)
                 {
                     if (item.ToLower().Contains("data/characters"))
-                        character = item.Split('/')[2];
+                        character = splitAtUpperCase(item.Split('/')[2]);
                     else if (item.ToLower().Contains(@"assets\images\champions"))
                         character = splitAtUpperCase(item.Substring(item.IndexOf(@"assets\images\champions") + 23).Split('_')[0]);
                 }
@@ -834,40 +836,17 @@ namespace SkinInstaller
 
         #region Installation
 
-        private void installSkin(String skinName)
+        private bool installSkin(String skinName)
         {
             // Get the files to install
             String[] files = Directory.GetFiles(Application.StartupPath + @"\Skins\" + skinName);
 
             // List of RAFArchives that are used so I know which .raf files to rebuild after injection
-            List<RAFArchive> usedRAFArchives = new List<RAFArchive>();
+            usedRAFArchives = new List<RAFArchive>();
 
             foreach (String file in files)
             {
-                // Chop off startup path and Skins/<Skin Name>)
-                String cleanPath = file.Substring((Application.StartupPath + @"\Skins\" + skinName).Length);
-
-                // RAF file
-                if (cleanPath.ToLower().Contains("raffiles"))
-                {
-                    cleanPath = cleanPath.Replace('\\', '/').Substring(9); // Substring chops off 'RAFFiles\'
-                    RAFFileListEntry entry = rafFiles.FileDictFull[cleanPath];
-                    if (entry == null)
-                        continue;
-
-                    usedRAFArchives.Add(entry.RAFArchive);
-                    entry.ReplaceContent(File.ReadAllBytes(file));
-                }                
-                // Air file
-                else if (cleanPath.ToLower().Contains("airfiles"))
-                {
-
-                }
-                // Text Mod
-                else if (cleanPath.ToLower().Contains("textmods"))
-                {
-
-                }                
+                installFile(file, skinName);
             }
 
             // Rebuild .raf files that were changed
@@ -877,19 +856,77 @@ namespace SkinInstaller
             }
         }
 
-        void backupFile(String fileName)
+        enum FileType
         {
+            RAF,
+            Air,
+            TextMod
+        };
 
+        private bool installFile(String file, String skinName)
+        {
+            // Chop off startup path and Skins/<Skin Name>)
+            String cleanPath = file.Substring((Application.StartupPath + @"\Skins\" + skinName).Length);
+
+            // RAF file
+            if (cleanPath.ToLower().Contains("raffiles"))
+            {
+                cleanPath = cleanPath.Replace('\\', '/').Substring(9); // Substring chops off 'RAFFiles\'
+                RAFFileListEntry entry = rafFiles.GetFileEntry(cleanPath);
+
+                // If there isn't an entry, first try to re-identify the file. The file might have been manually added to the directory
+                if (entry == null)
+                {
+                    String location = getFileLocation(file);
+                    fileHandler.FileMove(file, Application.StartupPath + @"\Skins\" + skinName + @"\" + location);
+                    file = Application.StartupPath + @"\Skins\" + skinName + @"\" + location;
+                    // Try again. If it fails, skip it
+                    entry = rafFiles.GetFileEntry(location.Replace('\\', '/').Substring(9));
+                    if (entry == null)
+                        return false;
+                }
+                
+                usedRAFArchives.Add(entry.RAFArchive);
+                entry.ReplaceContent(File.ReadAllBytes(file));
+
+                return true;
+            }
+            // Air file
+            else if (cleanPath.ToLower().Contains("airfiles"))
+            {
+
+            }
+            // Text Mod
+            else if (cleanPath.ToLower().Contains("textmods"))
+            {
+
+            }
+            // Try to reidentify and run again
+            else
+            {
+
+            }
         }
 
-        private void uninstallSkin(String skinName)
+        private bool backupFile(String fileName, FileType fileType)
         {
+            switch (fileType)
+            {
+                case FileType.RAF:
 
+                    break;
+            }
+            return true;
         }
 
-        private void deleteSkin(String skinName)
+        private bool uninstallSkin(String skinName)
         {
+            return true;
+        }
 
+        private bool deleteSkin(String skinName)
+        {
+            return true;
         }
 
         #endregion // Installation
