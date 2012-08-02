@@ -20,8 +20,6 @@ using RAFlibPlus;
 using ItzWarty;
 using zlib = ComponentAce.Compression.Libs.zlib;
 
-using LOLViewer;
-
 namespace SkinInstaller
 {
     public partial class skinInstaller : Form
