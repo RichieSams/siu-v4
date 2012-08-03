@@ -17,8 +17,6 @@ using System.Data.SQLite;
 using System.Diagnostics;
 
 using RAFlibPlus;
-using ItzWarty;
-using zlib = ComponentAce.Compression.Libs.zlib;
 
 namespace SkinInstaller
 {
@@ -218,7 +216,7 @@ namespace SkinInstaller
 
                 // Load Air files
                 airFileLocation = Directory.GetDirectories(gameDirectory + @"RADS\projects\lol_air_client\releases").Last();
-
+                
                 airFiles.AddRange(Directory.GetFiles(airFileLocation, "*", SearchOption.AllDirectories));
                 for (int i = 0; i < airFiles.Count; i++)
                 {
@@ -852,6 +850,13 @@ namespace SkinInstaller
             {
                 archive.SaveRAFFile();
             }
+
+            //
+            //
+            // Fix this return
+            //
+            //
+            return false;
         }
 
         enum FileType
@@ -885,24 +890,23 @@ namespace SkinInstaller
                 }
                 
                 usedRAFArchives.Add(entry.RAFArchive);
-                entry.ReplaceContent(File.ReadAllBytes(file));
 
                 return true;
             }
             // Air file
             else if (cleanPath.ToLower().Contains("airfiles"))
             {
-
+                return false;
             }
             // Text Mod
             else if (cleanPath.ToLower().Contains("textmods"))
             {
-
+                return false;
             }
             // Try to reidentify and run again
             else
             {
-
+                return false;
             }
         }
 
@@ -928,10 +932,6 @@ namespace SkinInstaller
         }
 
         #endregion // Installation
-
-        
-        
-        
 
     }
 }
