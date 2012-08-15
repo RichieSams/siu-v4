@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>siu.ico</ApplicationIcon>
+    <ApplicationIcon>Images\siu.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>F512DC482FE6F89B2CB7A5566CDA0489A288E340</ManifestCertificateThumbprint>
@@ -98,14 +98,14 @@
     <Compile Include="Dialogs\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
+    <Compile Include="Designer Code\Settings.cs" />
     <Compile Include="skinInstaller.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="skinInstaller.Designer.cs">
       <DependentUpon>skinInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Designer Code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper Classes\SQLiteDatabase.cs" />
     <EmbeddedResource Include="Dialogs\FileLocForm.resx">
@@ -127,7 +127,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
+    <None Include="Designer Code\app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -139,6 +139,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Third Party\LoLModelViewer\LoLFileReader\LoLFileReader.csproj">
+      <Project>{2A87B271-DBE0-4F60-AAE4-1702F5AB6561}</Project>
+      <Name>LoLFileReader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Third Party\LoLModelViewer\LOLViewer\LOLViewer.csproj">
       <Project>{30DAB98B-9CBD-4FEB-808F-144A554AA18C}</Project>
       <Name>LOLViewer</Name>
@@ -153,7 +157,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="siu.ico" />
+    <Content Include="Images\siu.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
