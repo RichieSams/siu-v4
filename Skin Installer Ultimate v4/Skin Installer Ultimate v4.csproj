@@ -147,13 +147,13 @@
       <Project>{30DAB98B-9CBD-4FEB-808F-144A554AA18C}</Project>
       <Name>LOLViewer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Third Party\LoLModelViewer\RAFlib-Plus\RAFlibPlus.csproj">
+      <Project>{BDF8E31B-A461-41A7-8361-07F10B40AD4F}</Project>
+      <Name>RAFlibPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Third Party\MessageForm\MessageForm.csproj">
       <Project>{6E7D9609-B82F-48A9-8E79-7E3340855AD6}</Project>
       <Name>MessageForm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Third Party\RAFlib-Plus\RAFlibPlus.csproj">
-      <Project>{BDF8E31B-A461-41A7-8361-07F10B40AD4F}</Project>
-      <Name>RAFlibPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
