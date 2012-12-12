@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -59,10 +59,23 @@
     <ManifestKeyFile>Skin Installer Ultimate v4_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SevenZipSharp">
@@ -77,12 +90,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="wLib">
-      <HintPath>..\Third Party\RAFlib-Plus\bin\Debug\wLib.dll</HintPath>
-    </Reference>
-    <Reference Include="zlib.net">
-      <HintPath>..\Third Party\RAFlib-Plus\bin\Debug\zlib.net.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper Classes\FileHandler.cs" />
@@ -128,6 +135,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Designer Code\app.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -139,14 +147,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Third Party\LoLModelViewer\LoLFileReader\LoLFileReader.csproj">
-      <Project>{2A87B271-DBE0-4F60-AAE4-1702F5AB6561}</Project>
-      <Name>LoLFileReader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Third Party\LoLModelViewer\LOLViewer\LOLViewer.csproj">
-      <Project>{30DAB98B-9CBD-4FEB-808F-144A554AA18C}</Project>
-      <Name>LOLViewer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Third Party\LoLModelViewer\RAFlib-Plus\RAFlibPlus.csproj">
       <Project>{BDF8E31B-A461-41A7-8361-07F10B40AD4F}</Project>
       <Name>RAFlibPlus</Name>

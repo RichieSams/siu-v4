@@ -1,4 +1,8 @@
 syntax: glob
-*bin/Debug/*
 *obj/*
 *.suo
+Debug
+ipch
+*.sdf
+*.opensdf
+*bin*

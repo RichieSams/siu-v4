@@ -4,97 +4,6 @@
         <name>MessageForm</name>
     </assembly>
     <members>
-        <member name="T:Cliver.MessageForm">
-            <summary>
-            Dynamic dialog box with many answer cases
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:Cliver.MessageForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:Cliver.MessageForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.SpanY">
-            <summary>
-            Vertical span in pixels between controls 
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.SpanX">
-            <summary>
-            Horizontal span in pixels between controls 
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.ButtonInternalMarginX">
-            <summary>
-            Span between button horizontal bound and its text
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.ButtonInternalMarginY">
-            <summary>
-            Span between button vertical bound and its text
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.MessageBoxWidth2HeightDesiredRegard">
-            <summary>
-            Desired proportion of the message label (not dialog window!) sides
-            </summary>
-        </member>
-        <member name="F:Cliver.MessageForm.MaxWindowSize">
-            <summary>
-            Max size of window.
-            </summary>
-        </member>
-        <member name="M:Cliver.MessageForm.#ctor(System.String,System.String,System.Drawing.Color[],System.String[],System.Int32,System.String,System.Drawing.Icon)">
-            <summary>
-            Construct dynamic dialog box with many answer cases
-            </summary>
-            <param name="caption">window caption</param>
-            <param name="message">message information</param>
-            <param name="button_colors">button colors</param>
-            <param name="answers">array of possible answers</param>
-            <param name="default_answer">default answer zero-based index</param>
-            <param name="silent_box_text">silent check box text; if null then check box will not be displayed</param>
-            <param name="icon">icon to be displayed</param>
-        </member>
-        <member name="M:Cliver.MessageForm.#ctor(System.String,System.String,System.Drawing.Color[],System.String[],System.Int32,System.String,System.Drawing.Image)">
-            <summary>
-            Construct dynamic dialog box with many answer cases
-            </summary>
-            <param name="caption">window caption</param>
-            <param name="message">message information</param>
-            <param name="button_colors">button colors</param>
-            <param name="answers">array of possible answers</param>
-            <param name="default_answer">default answer zero-based index</param>
-            <param name="silent_box_text">silent check box text; if null then check box will not be displayed</param>
-            <param name="image">image to be displayed as the message icon</param>
-        </member>
-        <member name="F:Cliver.MessageForm.Answer">
-            <summary>
-            Zero-based index of chosen answer. Cancel = -1
-            </summary>
-        </member>
-        <member name="M:Cliver.MessageForm.GetAnswer">
-            <summary>
-            Show MessageForm as a dialog box and get user's answer
-            </summary>
-            <returns>zero-based index of chosen answer. Cancel = -1</returns>
-        </member>
-        <member name="F:Cliver.MessageForm.Silent">
-            <summary>
-            Whether this answer should be repeated automatically
-            </summary>
-        </member>
         <member name="T:CliverSoft.Properties.Resources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -109,6 +18,41 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:vbAccelerator.Components.Win32.GroupIconResources">
+            <summary>
+            Enumerates Group Icon resources for the specified library
+            </summary>
+        </member>
+        <member name="M:vbAccelerator.Components.Win32.GroupIconResources.#ctor">
+            <summary>
+            Creates an instance of the class but doesn't
+            enumerate any resources
+            </summary>
+        </member>
+        <member name="M:vbAccelerator.Components.Win32.GroupIconResources.#ctor(System.String)">
+            <summary>
+            Creates an instance of the class and enumerates
+            icon resources for the specified file.
+            </summary>
+            <param name="libraryFile">File to get resources
+            for</param>
+        </member>
+        <member name="P:vbAccelerator.Components.Win32.GroupIconResources.Item(System.Int32)">
+            <summary>
+            Gets the GroupIconResource with the specified index
+            </summary>
+        </member>
+        <member name="P:vbAccelerator.Components.Win32.GroupIconResources.LibraryFile">
+            <summary>
+            Gets/sets the library file to load resources from
+            </summary>
+        </member>
+        <member name="T:vbAccelerator.Components.Win32.GroupIconResource">
+            <summary>
+            Stores the identifier for a single group
+            icon resource.
             </summary>
         </member>
         <member name="T:Cliver.IconRoutines">
@@ -156,41 +100,6 @@
         <member name="F:Cliver.IconRoutines.IconSize.Small">
             <summary>
             16x16
-            </summary>
-        </member>
-        <member name="T:vbAccelerator.Components.Win32.GroupIconResources">
-            <summary>
-            Enumerates Group Icon resources for the specified library
-            </summary>
-        </member>
-        <member name="M:vbAccelerator.Components.Win32.GroupIconResources.#ctor">
-            <summary>
-            Creates an instance of the class but doesn't
-            enumerate any resources
-            </summary>
-        </member>
-        <member name="M:vbAccelerator.Components.Win32.GroupIconResources.#ctor(System.String)">
-            <summary>
-            Creates an instance of the class and enumerates
-            icon resources for the specified file.
-            </summary>
-            <param name="libraryFile">File to get resources
-            for</param>
-        </member>
-        <member name="P:vbAccelerator.Components.Win32.GroupIconResources.Item(System.Int32)">
-            <summary>
-            Gets the GroupIconResource with the specified index
-            </summary>
-        </member>
-        <member name="P:vbAccelerator.Components.Win32.GroupIconResources.LibraryFile">
-            <summary>
-            Gets/sets the library file to load resources from
-            </summary>
-        </member>
-        <member name="T:vbAccelerator.Components.Win32.GroupIconResource">
-            <summary>
-            Stores the identifier for a single group
-            icon resource.
             </summary>
         </member>
         <member name="T:Cliver.Message">
@@ -378,6 +287,97 @@
             <summary>
             Colors that buttons will be colored to in the first next message. If no need color, must be set to null. 
             Not thread-safe!
+            </summary>
+        </member>
+        <member name="T:Cliver.MessageForm">
+            <summary>
+            Dynamic dialog box with many answer cases
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Cliver.MessageForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Cliver.MessageForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.SpanY">
+            <summary>
+            Vertical span in pixels between controls 
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.SpanX">
+            <summary>
+            Horizontal span in pixels between controls 
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.ButtonInternalMarginX">
+            <summary>
+            Span between button horizontal bound and its text
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.ButtonInternalMarginY">
+            <summary>
+            Span between button vertical bound and its text
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.MessageBoxWidth2HeightDesiredRegard">
+            <summary>
+            Desired proportion of the message label (not dialog window!) sides
+            </summary>
+        </member>
+        <member name="F:Cliver.MessageForm.MaxWindowSize">
+            <summary>
+            Max size of window.
+            </summary>
+        </member>
+        <member name="M:Cliver.MessageForm.#ctor(System.String,System.String,System.Drawing.Color[],System.String[],System.Int32,System.String,System.Drawing.Icon)">
+            <summary>
+            Construct dynamic dialog box with many answer cases
+            </summary>
+            <param name="caption">window caption</param>
+            <param name="message">message information</param>
+            <param name="button_colors">button colors</param>
+            <param name="answers">array of possible answers</param>
+            <param name="default_answer">default answer zero-based index</param>
+            <param name="silent_box_text">silent check box text; if null then check box will not be displayed</param>
+            <param name="icon">icon to be displayed</param>
+        </member>
+        <member name="M:Cliver.MessageForm.#ctor(System.String,System.String,System.Drawing.Color[],System.String[],System.Int32,System.String,System.Drawing.Image)">
+            <summary>
+            Construct dynamic dialog box with many answer cases
+            </summary>
+            <param name="caption">window caption</param>
+            <param name="message">message information</param>
+            <param name="button_colors">button colors</param>
+            <param name="answers">array of possible answers</param>
+            <param name="default_answer">default answer zero-based index</param>
+            <param name="silent_box_text">silent check box text; if null then check box will not be displayed</param>
+            <param name="image">image to be displayed as the message icon</param>
+        </member>
+        <member name="F:Cliver.MessageForm.Answer">
+            <summary>
+            Zero-based index of chosen answer. Cancel = -1
+            </summary>
+        </member>
+        <member name="M:Cliver.MessageForm.GetAnswer">
+            <summary>
+            Show MessageForm as a dialog box and get user's answer
+            </summary>
+            <returns>zero-based index of chosen answer. Cancel = -1</returns>
+        </member>
+        <member name="F:Cliver.MessageForm.Silent">
+            <summary>
+            Whether this answer should be repeated automatically
             </summary>
         </member>
         <member name="T:vbAccelerator.Components.Win32.IconExException">

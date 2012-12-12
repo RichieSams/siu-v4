@@ -28,26 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(skinInstaller));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Please wait for the progress bar to finish loading bellow...");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(skinInstaller));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editInstallPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeGameClientLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateFileListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editAllPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerAppForWebUrlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showDebugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.getProgramLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.repathAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetCharacterIconsCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.useDDSVersionReaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loLViewerOpenNotPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showMenuFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -62,7 +47,6 @@
             this.startLoLButton = new System.Windows.Forms.Button();
             this.webIntegrationButton = new System.Windows.Forms.Button();
             this.locateGameClient = new System.Windows.Forms.Button();
-            this.exitButton = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
             this.installSkinsTab = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -82,10 +66,9 @@
             this.checkBox1dispAuthor = new System.Windows.Forms.CheckBox();
             this.checkBox1dispTitle = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.labelSkinName = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.previewTitle_lbl = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.editSkinButton = new System.Windows.Forms.Button();
             this.reinstallTextModsButton = new System.Windows.Forms.Button();
@@ -131,11 +114,11 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
-            this.splitContainer6.Panel1.SuspendLayout();
-            this.splitContainer6.Panel2.SuspendLayout();
-            this.splitContainer6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel10.SuspendLayout();
             this.addNewSkinsTab.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -167,122 +150,15 @@
             // 
             // optionsToolStripMenuItem
             // 
-            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editInstallPreferencesToolStripMenuItem,
-            this.changeGameClientLocationToolStripMenuItem,
-            this.updateFileListToolStripMenuItem,
-            this.editAllPreferencesToolStripMenuItem,
-            this.checkForUpdateToolStripMenuItem,
-            this.registerAppForWebUrlsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // editInstallPreferencesToolStripMenuItem
-            // 
-            this.editInstallPreferencesToolStripMenuItem.Name = "editInstallPreferencesToolStripMenuItem";
-            this.editInstallPreferencesToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.editInstallPreferencesToolStripMenuItem.Text = "Edit Install Preferences";
-            // 
-            // changeGameClientLocationToolStripMenuItem
-            // 
-            this.changeGameClientLocationToolStripMenuItem.Name = "changeGameClientLocationToolStripMenuItem";
-            this.changeGameClientLocationToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.changeGameClientLocationToolStripMenuItem.Text = "Change Game Client Location";
-            // 
-            // updateFileListToolStripMenuItem
-            // 
-            this.updateFileListToolStripMenuItem.Name = "updateFileListToolStripMenuItem";
-            this.updateFileListToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.updateFileListToolStripMenuItem.Text = "Update File List";
-            // 
-            // editAllPreferencesToolStripMenuItem
-            // 
-            this.editAllPreferencesToolStripMenuItem.Name = "editAllPreferencesToolStripMenuItem";
-            this.editAllPreferencesToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.editAllPreferencesToolStripMenuItem.Text = "Edit All Preferences";
-            // 
-            // checkForUpdateToolStripMenuItem
-            // 
-            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.checkForUpdateToolStripMenuItem.Text = "Check For Update";
-            // 
-            // registerAppForWebUrlsToolStripMenuItem
-            // 
-            this.registerAppForWebUrlsToolStripMenuItem.Name = "registerAppForWebUrlsToolStripMenuItem";
-            this.registerAppForWebUrlsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.registerAppForWebUrlsToolStripMenuItem.Text = "Register App For WebUrls";
-            // 
             // debugToolStripMenuItem
             // 
-            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showDebugToolStripMenuItem,
-            this.clientLocationToolStripMenuItem,
-            this.getProgramLocationToolStripMenuItem,
-            this.repathAllFilesToolStripMenuItem,
-            this.resetCharacterIconsCacheToolStripMenuItem,
-            this.viewStatsToolStripMenuItem,
-            this.useDDSVersionReaderToolStripMenuItem,
-            this.loLViewerOpenNotPreviewToolStripMenuItem,
-            this.showMenuFileLocationToolStripMenuItem});
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
             this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.debugToolStripMenuItem.Text = "Debug";
-            // 
-            // showDebugToolStripMenuItem
-            // 
-            this.showDebugToolStripMenuItem.Name = "showDebugToolStripMenuItem";
-            this.showDebugToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.showDebugToolStripMenuItem.Text = "Show Debug";
-            // 
-            // clientLocationToolStripMenuItem
-            // 
-            this.clientLocationToolStripMenuItem.Name = "clientLocationToolStripMenuItem";
-            this.clientLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.clientLocationToolStripMenuItem.Text = "Client Location";
-            // 
-            // getProgramLocationToolStripMenuItem
-            // 
-            this.getProgramLocationToolStripMenuItem.Name = "getProgramLocationToolStripMenuItem";
-            this.getProgramLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.getProgramLocationToolStripMenuItem.Text = "Get Program Location";
-            // 
-            // repathAllFilesToolStripMenuItem
-            // 
-            this.repathAllFilesToolStripMenuItem.Name = "repathAllFilesToolStripMenuItem";
-            this.repathAllFilesToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.repathAllFilesToolStripMenuItem.Text = "Repath All Files";
-            // 
-            // resetCharacterIconsCacheToolStripMenuItem
-            // 
-            this.resetCharacterIconsCacheToolStripMenuItem.Name = "resetCharacterIconsCacheToolStripMenuItem";
-            this.resetCharacterIconsCacheToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.resetCharacterIconsCacheToolStripMenuItem.Text = "Reset Character Icons Cache";
-            // 
-            // viewStatsToolStripMenuItem
-            // 
-            this.viewStatsToolStripMenuItem.Name = "viewStatsToolStripMenuItem";
-            this.viewStatsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.viewStatsToolStripMenuItem.Text = "View Stats";
-            // 
-            // useDDSVersionReaderToolStripMenuItem
-            // 
-            this.useDDSVersionReaderToolStripMenuItem.Name = "useDDSVersionReaderToolStripMenuItem";
-            this.useDDSVersionReaderToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.useDDSVersionReaderToolStripMenuItem.Text = "Use DDS Version Reader";
-            // 
-            // loLViewerOpenNotPreviewToolStripMenuItem
-            // 
-            this.loLViewerOpenNotPreviewToolStripMenuItem.Name = "loLViewerOpenNotPreviewToolStripMenuItem";
-            this.loLViewerOpenNotPreviewToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.loLViewerOpenNotPreviewToolStripMenuItem.Text = "LoLViewer Open (Not Preview)";
-            // 
-            // showMenuFileLocationToolStripMenuItem
-            // 
-            this.showMenuFileLocationToolStripMenuItem.Name = "showMenuFileLocationToolStripMenuItem";
-            this.showMenuFileLocationToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.showMenuFileLocationToolStripMenuItem.Text = "Show Menu File Location";
             // 
             // aboutToolStripMenuItem
             // 
@@ -355,7 +231,6 @@
             this.panel7.Controls.Add(this.startLoLButton);
             this.panel7.Controls.Add(this.webIntegrationButton);
             this.panel7.Controls.Add(this.locateGameClient);
-            this.panel7.Controls.Add(this.exitButton);
             this.panel7.Controls.Add(this.helpButton);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
@@ -384,6 +259,7 @@
             this.lbl_progressPercent.Size = new System.Drawing.Size(44, 13);
             this.lbl_progressPercent.TabIndex = 42;
             this.lbl_progressPercent.Text = "Percent";
+            this.lbl_progressPercent.Visible = false;
             // 
             // progressBar1
             // 
@@ -396,6 +272,7 @@
             // cancelProgressButton
             // 
             this.cancelProgressButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cancelProgressButton.Enabled = false;
             this.cancelProgressButton.Location = new System.Drawing.Point(769, 0);
             this.cancelProgressButton.Name = "cancelProgressButton";
             this.cancelProgressButton.Size = new System.Drawing.Size(50, 22);
@@ -406,19 +283,21 @@
             // startLoLButton
             // 
             this.startLoLButton.AllowDrop = true;
-            this.startLoLButton.Location = new System.Drawing.Point(544, 3);
+            this.startLoLButton.Location = new System.Drawing.Point(544, 4);
             this.startLoLButton.Name = "startLoLButton";
             this.startLoLButton.Size = new System.Drawing.Size(75, 23);
             this.startLoLButton.TabIndex = 43;
             this.startLoLButton.Text = "Start LoL";
             this.startLoLButton.UseVisualStyleBackColor = true;
+            this.startLoLButton.Click += new System.EventHandler(this.startLoLButton_Click);
             this.startLoLButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.startLoLButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
             // webIntegrationButton
             // 
             this.webIntegrationButton.AllowDrop = true;
-            this.webIntegrationButton.Location = new System.Drawing.Point(88, 3);
+            this.webIntegrationButton.Enabled = false;
+            this.webIntegrationButton.Location = new System.Drawing.Point(88, 4);
             this.webIntegrationButton.Name = "webIntegrationButton";
             this.webIntegrationButton.Size = new System.Drawing.Size(153, 23);
             this.webIntegrationButton.TabIndex = 42;
@@ -430,7 +309,7 @@
             // locateGameClient
             // 
             this.locateGameClient.AllowDrop = true;
-            this.locateGameClient.Location = new System.Drawing.Point(9, 3);
+            this.locateGameClient.Location = new System.Drawing.Point(9, 4);
             this.locateGameClient.Name = "locateGameClient";
             this.locateGameClient.Size = new System.Drawing.Size(75, 23);
             this.locateGameClient.TabIndex = 36;
@@ -439,24 +318,12 @@
             this.locateGameClient.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.locateGameClient.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
-            // exitButton
-            // 
-            this.exitButton.AllowDrop = true;
-            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.Location = new System.Drawing.Point(758, 3);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(57, 23);
-            this.exitButton.TabIndex = 20;
-            this.exitButton.Text = "Exit";
-            this.exitButton.UseVisualStyleBackColor = true;
-            this.exitButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.exitButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
-            // 
             // helpButton
             // 
             this.helpButton.AllowDrop = true;
             this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.helpButton.Location = new System.Drawing.Point(700, 3);
+            this.helpButton.Enabled = false;
+            this.helpButton.Location = new System.Drawing.Point(771, 4);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(44, 23);
             this.helpButton.TabIndex = 41;
@@ -475,7 +342,7 @@
             this.installSkinsTab.Padding = new System.Windows.Forms.Padding(3);
             this.installSkinsTab.Size = new System.Drawing.Size(811, 340);
             this.installSkinsTab.TabIndex = 7;
-            this.installSkinsTab.Text = "Install Existing Skin";
+            this.installSkinsTab.Text = "Existing Skins";
             this.installSkinsTab.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.installSkinsTab.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
@@ -496,7 +363,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer6);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(805, 303);
             this.splitContainer1.SplitterDistance = 615;
             this.splitContainer1.TabIndex = 7;
@@ -663,77 +530,44 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Show:";
             // 
-            // splitContainer6
+            // splitContainer2
             // 
-            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer6.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer6.Name = "splitContainer6";
-            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer6.Panel1
+            // splitContainer2.Panel1
             // 
-            this.splitContainer6.Panel1.AllowDrop = true;
-            this.splitContainer6.Panel1.Controls.Add(this.textBox2);
-            this.splitContainer6.Panel1.Controls.Add(this.labelSkinName);
-            this.splitContainer6.Panel1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.splitContainer6.Panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.splitContainer6.Panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.splitContainer2.Panel1.Controls.Add(this.previewTitle_lbl);
             // 
-            // splitContainer6.Panel2
+            // splitContainer2.Panel2
             // 
-            this.splitContainer6.Panel2.Controls.Add(this.pictureBox2);
-            this.splitContainer6.Size = new System.Drawing.Size(186, 303);
-            this.splitContainer6.SplitterDistance = 95;
-            this.splitContainer6.TabIndex = 0;
-            this.splitContainer6.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.splitContainer6.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.splitContainer2.Panel2.Controls.Add(this.pictureBox1);
+            this.splitContainer2.Size = new System.Drawing.Size(186, 303);
+            this.splitContainer2.SplitterDistance = 31;
+            this.splitContainer2.TabIndex = 0;
             // 
-            // textBox2
+            // previewTitle_lbl
             // 
-            this.textBox2.AllowDrop = true;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(0, 21);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(186, 74);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.textBox2.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
+            this.previewTitle_lbl.AutoSize = true;
+            this.previewTitle_lbl.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.previewTitle_lbl.Font = new System.Drawing.Font("Palatino Linotype", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.previewTitle_lbl.Location = new System.Drawing.Point(3, 3);
+            this.previewTitle_lbl.Name = "previewTitle_lbl";
+            this.previewTitle_lbl.Size = new System.Drawing.Size(138, 26);
+            this.previewTitle_lbl.TabIndex = 0;
+            this.previewTitle_lbl.Text = "Click on a Skin!";
+            this.previewTitle_lbl.Visible = false;
             // 
-            // labelSkinName
+            // pictureBox1
             // 
-            this.labelSkinName.AllowDrop = true;
-            this.labelSkinName.AutoSize = true;
-            this.labelSkinName.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.labelSkinName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelSkinName.Font = new System.Drawing.Font("Palatino Linotype", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSkinName.Location = new System.Drawing.Point(0, 0);
-            this.labelSkinName.Name = "labelSkinName";
-            this.labelSkinName.Size = new System.Drawing.Size(100, 21);
-            this.labelSkinName.TabIndex = 0;
-            this.labelSkinName.Text = "Click a Skin!";
-            this.labelSkinName.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
-            this.labelSkinName.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.SizeAll;
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.ErrorImage = null;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(186, 204);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(186, 268);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // panel10
             // 
@@ -756,6 +590,7 @@
             // editSkinButton
             // 
             this.editSkinButton.AllowDrop = true;
+            this.editSkinButton.Enabled = false;
             this.editSkinButton.Location = new System.Drawing.Point(497, 3);
             this.editSkinButton.Name = "editSkinButton";
             this.editSkinButton.Size = new System.Drawing.Size(75, 23);
@@ -766,6 +601,7 @@
             // reinstallTextModsButton
             // 
             this.reinstallTextModsButton.AllowDrop = true;
+            this.reinstallTextModsButton.Enabled = false;
             this.reinstallTextModsButton.Location = new System.Drawing.Point(170, 3);
             this.reinstallTextModsButton.Name = "reinstallTextModsButton";
             this.reinstallTextModsButton.Size = new System.Drawing.Size(117, 23);
@@ -782,8 +618,9 @@
             this.deleteSkinButton.Name = "deleteSkinButton";
             this.deleteSkinButton.Size = new System.Drawing.Size(75, 23);
             this.deleteSkinButton.TabIndex = 3;
-            this.deleteSkinButton.Text = "Delete";
+            this.deleteSkinButton.Text = "Delete Skin";
             this.deleteSkinButton.UseVisualStyleBackColor = true;
+            this.deleteSkinButton.Click += new System.EventHandler(this.deleteSkinButton_Click);
             this.deleteSkinButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.deleteSkinButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
@@ -796,6 +633,7 @@
             this.installButton.TabIndex = 1;
             this.installButton.Text = "Install";
             this.installButton.UseVisualStyleBackColor = true;
+            this.installButton.Click += new System.EventHandler(this.installButton_Click);
             this.installButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.installButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
@@ -808,12 +646,14 @@
             this.uninstallButton.TabIndex = 2;
             this.uninstallButton.Text = "Uninstall";
             this.uninstallButton.UseVisualStyleBackColor = true;
+            this.uninstallButton.Click += new System.EventHandler(this.uninstallButton_Click);
             this.uninstallButton.DragDrop += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragDrop);
             this.uninstallButton.DragEnter += new System.Windows.Forms.DragEventHandler(this.skinInstaller_DragEnter);
             // 
             // createZipFromSkinButton
             // 
             this.createZipFromSkinButton.AllowDrop = true;
+            this.createZipFromSkinButton.Enabled = false;
             this.createZipFromSkinButton.Location = new System.Drawing.Point(294, 3);
             this.createZipFromSkinButton.Name = "createZipFromSkinButton";
             this.createZipFromSkinButton.Size = new System.Drawing.Size(75, 23);
@@ -826,6 +666,7 @@
             // fixSkinButton
             // 
             this.fixSkinButton.AllowDrop = true;
+            this.fixSkinButton.Enabled = false;
             this.fixSkinButton.Location = new System.Drawing.Point(376, 3);
             this.fixSkinButton.Name = "fixSkinButton";
             this.fixSkinButton.Size = new System.Drawing.Size(114, 23);
@@ -1131,6 +972,7 @@
             // 
             // treeExportButton
             // 
+            this.treeExportButton.Enabled = false;
             this.treeExportButton.Location = new System.Drawing.Point(27, 2);
             this.treeExportButton.Name = "treeExportButton";
             this.treeExportButton.Size = new System.Drawing.Size(239, 23);
@@ -1176,12 +1018,12 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            this.splitContainer6.Panel1.ResumeLayout(false);
-            this.splitContainer6.Panel1.PerformLayout();
-            this.splitContainer6.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
-            this.splitContainer6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel10.ResumeLayout(false);
             this.addNewSkinsTab.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -1210,22 +1052,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editInstallPreferencesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeGameClientLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateFileListToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editAllPreferencesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registerAppForWebUrlsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem repathAllFilesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showDebugToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewStatsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem getProgramLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetCharacterIconsCacheToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem useDDSVersionReaderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loLViewerOpenNotPreviewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showMenuFileLocationToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelGL;
         private System.Windows.Forms.Label label5;
@@ -1238,7 +1065,6 @@
         private System.Windows.Forms.Button startLoLButton;
         private System.Windows.Forms.Button webIntegrationButton;
         private System.Windows.Forms.Button locateGameClient;
-        private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.TabPage installSkinsTab;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -1249,10 +1075,6 @@
         private System.Windows.Forms.ColumnHeader fileCount;
         private System.Windows.Forms.ColumnHeader added;
         private System.Windows.Forms.ColumnHeader character;
-        private System.Windows.Forms.SplitContainer splitContainer6;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label labelSkinName;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button reinstallTextModsButton;
         private System.Windows.Forms.Button deleteSkinButton;
@@ -1295,6 +1117,9 @@
         private System.Windows.Forms.CheckBox checkBox1dispTitle;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ColumnHeader installed;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Label previewTitle_lbl;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

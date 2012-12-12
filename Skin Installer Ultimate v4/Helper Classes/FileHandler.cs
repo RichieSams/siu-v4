@@ -7,46 +7,56 @@
 
     public class FileHandler
     {
-        public void DirectoryDelete(string dirName)
+        public static void DeleteFullDirectory(string dirName)
         {
             try
             {
-                //Directory.Delete(dirName, sub);
-                ForceDeleteDirectory(dirName);
+                DirectoryInfo root = new DirectoryInfo(dirName);
+                Stack<DirectoryInfo> fols = new Stack<DirectoryInfo>();
+                DirectoryInfo fol;
+
+                fols.Push(root);
+                while (fols.Count > 0)
+                {
+                    fol = fols.Pop();
+                    fol.Attributes = fol.Attributes & ~(FileAttributes.Archive | FileAttributes.ReadOnly | FileAttributes.Hidden);
+                    foreach (DirectoryInfo d in fol.GetDirectories())
+                    {
+                        fols.Push(d);
+                    }
+                    foreach (FileInfo f in fol.GetFiles())
+                    {
+                        f.Attributes = f.Attributes & ~(FileAttributes.Archive | FileAttributes.ReadOnly | FileAttributes.Hidden);
+                        f.Delete();
+                    }
+                }
+                root.Delete(true);
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.Message);
-                //MessageBox.Show(exception.Message);
+                MessageBox.Show(exception.Message);
             }
         }
-        public static void ForceDeleteDirectory(string path)
+
+        public static void FileWriteAllBytes(string fileName, byte[] content)
         {
-            DirectoryInfo root;
-            Stack<DirectoryInfo> fols;
-            DirectoryInfo fol;
-            fols = new Stack<DirectoryInfo>();
-            root = new DirectoryInfo(path);
-            fols.Push(root);
-            while (fols.Count > 0)
+            try
             {
-                fol = fols.Pop();
-                fol.Attributes = fol.Attributes & ~(FileAttributes.Archive | FileAttributes.ReadOnly | FileAttributes.Hidden);
-                foreach (DirectoryInfo d in fol.GetDirectories())
+                string[] strArray = fileName.Split(new char[] { '\\' });
+                string path = fileName.Remove(fileName.Length - strArray[strArray.Length - 1].Length);
+                if (!Directory.Exists(path))
                 {
-                    fols.Push(d);
+                    Directory.CreateDirectory(path);
                 }
-                foreach (FileInfo f in fol.GetFiles())
-                {
-                    f.Attributes = f.Attributes & ~(FileAttributes.Archive | FileAttributes.ReadOnly | FileAttributes.Hidden);
-                    f.Delete();
-                }
+                File.WriteAllBytes(fileName, content);
             }
-            root.Delete(true);
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message + "\r\n trying to write the file " + fileName);
+            }
         }
 
-
-        public void FileCopy(string fileName, string fileDest)
+        public static void FileCopy(string fileName, string fileDest)
         {
             try
             {
@@ -64,7 +74,7 @@
             }
         }
 
-        public void FileDelete(string fileName)
+        public static void FileDelete(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -82,7 +92,7 @@
             }
         }
 
-        public void FileMove(string fileName, string fileDest)
+        public static void FileMove(string fileName, string fileDest)
         {
             try
             {
@@ -99,7 +109,7 @@
                 MessageBox.Show(exception.Message + "\r\n on the file " + fileName + "\r\ngoing to \r\n" + fileDest);
             }
         }
-        public void DirectoryMove(string dirPath, string dirDest)
+        public static void DirectoryMove(string dirPath, string dirDest)
         {
             try
             {

@@ -1,4 +1,60 @@
-﻿using System;
+﻿/*
+ * Skin Installer Ultimate v4 (SIU v4)
+ * Copyright 2012 Adrian Astley (RichieSams)
+ * This file is part of SIU v4
+ * 
+ * SIU v4 is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ * 
+ * SIU v4 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with SIU v4.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*
+ * This Program is designed to help safely install
+ * a variety of skins for the League of Legends game.
+ * http://www.leagueoflegends.com 
+ * 
+ * A good website to browse such skins is
+ * http://leaguecraft.com/skins 
+ * 
+ * This program is a re-write of SIU-LGG created by LGG.
+ * It can be found here: http://code.google.com/p/siu-lgg/
+ * SIU v3 was a modification of the original 
+ * Skin installer generously provided and created by sgun
+ * It can be found here http://forum.leaguecraft.com/index.php?/topic/5542-tool-lol-skin-installer-skin-installation-and-management-tool 
+ * 
+ * This program incorporates sound installation code
+ * found from http://forum.leaguecraft.com/index.php?/topic/21301-release-lolmod 
+ * 
+ * And uses RAFlibPlus by RichieSams to read raf files.
+ * It can be found here: http://code.google.com/p/raflib-plus/
+ * RAFlibPlus is a re-write of the original RAFlib by ItzWarty.
+ * It can be found here http://code.google.com/p/raf-manager/
+ * 
+ * And uses fsbext to read fmod sound files
+ * It can be found here http://aluigi.altervista.org/papers.htm 
+ * 
+ * And also uses code from LoLViewer by SapphireStormLC 
+ * It can be found here http://code.google.com/p/lolmodelviewer/
+ * 
+ * It also uses the devil image library and 7zip.
+ * 
+ * All external code is licensed and copyright 
+ * by their respective owners
+ */
+
+// To make navigation of this code easier, inside Microsoft Visual Studio
+// Press ctrl+M, then ctrl+O to collapse regions.
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +68,10 @@ using System.Drawing.Drawing2D;
 using System.Net;
 using System.Threading;
 using System.Globalization;
-using SevenZip;
 using System.Data.SQLite;
 using System.Diagnostics;
 
+using SevenZip;
 using RAFlibPlus;
 
 namespace SkinInstaller
@@ -32,8 +88,6 @@ namespace SkinInstaller
         private string versionURL = "";
         private string changeLogURL = "https://sites.google.com/site/siuupdates/version.txt";
         private WebClient webClient = new WebClient();
-
-        private FileHandler fileHandler = new FileHandler();
 
         private SQLiteDatabase database;
 
@@ -122,9 +176,9 @@ namespace SkinInstaller
 
             // Cleanup and leftover temp directories
             if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
-                fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
+                FileHandler.DeleteFullDirectory(Application.StartupPath + @"\extractedFiles\");
             if (Directory.Exists(Application.StartupPath + @"\filesToBeInstalled\"))
-                fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\");
+                FileHandler.DeleteFullDirectory(Application.StartupPath + @"\filesToBeInstalled\");
 
             // Find League installation
             if (Properties.Settings.Default.gameDir != "" && (File.Exists(Properties.Settings.Default.gameDir + "lol.launcher.exe") || File.Exists(Properties.Settings.Default.gameDir + "league of legends.exe"))) // I think league of legends.exe is garena users
@@ -229,7 +283,7 @@ namespace SkinInstaller
 
             timer.Stop();
 
-            this.Focus();
+            this.Select();
         }
 
         private void skinInstaller_FormClosing(object sender, FormClosingEventArgs e)
@@ -324,7 +378,7 @@ namespace SkinInstaller
             {
                 if (File.Exists(Application.StartupPath + @"\filesToBeInstalled\" + installFiles_ListBox.SelectedItem.ToString()))
                 {
-                    this.fileHandler.FileDelete(Application.StartupPath + @"\filesToBeInstalled\" + installFiles_ListBox.SelectedItem.ToString());
+                    FileHandler.FileDelete(Application.StartupPath + @"\filesToBeInstalled\" + installFiles_ListBox.SelectedItem.ToString());
                 }
 
                 installFiles_ListBox.Items.Remove(installFiles_ListBox.SelectedItem);
@@ -340,7 +394,7 @@ namespace SkinInstaller
                 this.installFiles_ListBox.Items.Clear();
 
                 if (Directory.Exists(Application.StartupPath + @"\extractedFiles\"))
-                    this.fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
+                    FileHandler.DeleteFullDirectory(Application.StartupPath + @"\extractedFiles\");
             }
         }
 
@@ -458,7 +512,7 @@ namespace SkinInstaller
                 if (location != null)
                 {
                     installFiles_ListBox.Items.Add(location);
-                    fileHandler.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location);
+                    FileHandler.FileCopy(file, Application.StartupPath + @"\filesToBeInstalled\" + location);
                 }
                 else
                     skippedFiles.Add(file);
@@ -589,7 +643,6 @@ namespace SkinInstaller
             FileLocForm getCorrectFile = new FileLocForm(fileInfo, options);
             if (getCorrectFile.ShowDialog() == DialogResult.OK)
             {
-                getCorrectFile = null;
                 return getCorrectFile.possibleLocs.SelectedItem.ToString();
             }
             else
@@ -685,8 +738,8 @@ namespace SkinInstaller
                     }
                     else
                     {
-                        //clear that folder and contiunue
-                        fileHandler.DirectoryDelete(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text);
+                        //clear that folder and continue
+                        FileHandler.DeleteFullDirectory(Application.StartupPath + @"\Skins\" + skinNameTextbox.Text);
                     }
                 }
             }
@@ -695,7 +748,7 @@ namespace SkinInstaller
             String character = String.Empty;
             foreach (String item in installFiles_ListBox.Items)
             {
-                fileHandler.FileMove(Application.StartupPath + @"\filesToBeInstalled\" + item.Replace('/', '\\'), Application.StartupPath + @"\Skins\" + skinNameTextbox.Text + @"\" + item.Replace('/', '\\'));
+                FileHandler.FileMove(Application.StartupPath + @"\filesToBeInstalled\" + item.Replace('/', '\\'), Application.StartupPath + @"\Skins\" + skinNameTextbox.Text + @"\" + item.Replace('/', '\\'));
 
                 if (character == String.Empty)
                 {
@@ -736,8 +789,8 @@ namespace SkinInstaller
             authorNameTextbox.Text = "Unknown";
 
             // Cleanup of temp folders
-            fileHandler.DirectoryDelete(Application.StartupPath + @"\extractedFiles\");
-            fileHandler.DirectoryDelete(Application.StartupPath + @"\filesToBeInstalled\");
+            FileHandler.DeleteFullDirectory(Application.StartupPath + @"\extractedFiles\");
+            FileHandler.DeleteFullDirectory(Application.StartupPath + @"\filesToBeInstalled\");
         }
 
         String splitAtUpperCase(String input)
@@ -770,7 +823,7 @@ namespace SkinInstaller
                         item.Font = new Font(item.Font, FontStyle.Bold);
                     item.SubItems.Add(row[0].ToString());
                     item.SubItems.Add(row[1].ToString());
-                    item.SubItems.Add(Directory.GetFiles(Application.StartupPath + @"\Skins\" + row[0].ToString()).Count().ToString());
+                    item.SubItems.Add(Directory.GetFiles(Application.StartupPath + @"\Skins\" + row[0].ToString(), "*", SearchOption.AllDirectories).Count().ToString());
                     item.SubItems.Add(row[2].ToString());
                     item.SubItems.Add(row[3].ToString());
                     item.SubItems.Add(row[4].ToString());
@@ -832,31 +885,134 @@ namespace SkinInstaller
 
         #region Installation
 
+        #region Installation GUI functions
+
+        private void installButton_Click(object sender, EventArgs e)
+        {
+            // Inform the user of the usage
+            if (skinDatabaseListView.CheckedItems.Count < 1)
+            {
+                Cliver.Message.Inform("Please 'check-mark' which skin(s) you would like to install\n" +
+                    "\nIf you do not see any skins above, you can add them in the tab: \"Add New Skin\"");
+                return;
+            }
+
+            // Install all checked skins
+            foreach (ListViewItem item in skinDatabaseListView.CheckedItems)
+            {
+                // Check if the skin is already installed
+                if ((item.SubItems[4].Text != "") &&
+                    (Cliver.Message.Show("Skin Already Installed", SystemIcons.Information, item.SubItems[1].Text + " is already installed. Do you want to reinstall it?", 0, new string[2] { "Yes", "No" }) == 1))
+                {
+                    continue;
+                }
+
+                installSkin(item.SubItems[1].Text);
+            }
+
+            // Update the ListView to reflect the changes
+            updateListView();
+
+            Cliver.Message.Inform("Successfully installed skins");
+        }
+
+        private void uninstallButton_Click(object sender, EventArgs e)
+        {
+            // Inform the user of the usage
+            if (skinDatabaseListView.CheckedItems.Count < 1)
+            {
+                Cliver.Message.Inform("Please 'check-mark' which skin(s) you would like to install\n" +
+                    "\nIf you do not see any skins above, you can add them in the tab: \"Add New Skin\"");
+                return;
+            }
+
+            // Uninstall all checked skins
+            foreach (ListViewItem item in skinDatabaseListView.CheckedItems)
+            {
+                uninstallSkin(item.SubItems[1].Text);
+            }
+
+            // Update the ListView to reflect the changes
+            updateListView();
+
+            Cliver.Message.Inform("Successfully uninstalled skins");
+        }
+
+        private void deleteSkinButton_Click(object sender, EventArgs e)
+        {
+            // Inform the user of the usage
+            if (skinDatabaseListView.CheckedItems.Count < 1)
+            {
+                Cliver.Message.Inform("Please 'check-mark' which skin(s) you would like to delete\n" +
+                    "\nIf you do not see any skins above, you can add them in the tab: \"Add New Skin\"");
+                return;
+            }
+
+            // Double check with the user
+            if (Cliver.Message.Show("Are you sure?",
+                SystemIcons.Question, "Are you sure want delete these skins?", 0, new string[2] { "Yes", "No" }) == 0)
+            {
+                foreach (ListViewItem item in skinDatabaseListView.CheckedItems)
+                {
+                    // Recursively delete everything in the skin folder and the folder itself
+                    if (Directory.Exists(Application.StartupPath + @"\Skins\" + item.SubItems[1].Text))
+                    {
+                        FileHandler.DeleteFullDirectory(Application.StartupPath + @"\Skins\" + item.SubItems[1].Text);
+                    }
+
+                    // Delete the entry in the database
+                    database.ExecuteNonQuery("DELETE FROM skins WHERE Name='" + item.SubItems[1].Text + "'");
+                }
+            }
+
+            // Update the ListView
+            updateListView();
+        }
+
+        #endregion // Installation GUI functions
+
         private bool installSkin(String skinName)
         {
             // Get the files to install
-            String[] files = Directory.GetFiles(Application.StartupPath + @"\Skins\" + skinName);
+            String[] files = Directory.GetFiles(Application.StartupPath + @"\Skins\" + skinName, "*", SearchOption.AllDirectories);
 
             // List of RAFArchives that are used so I know which .raf files to rebuild after injection
             usedRAFArchives = new List<RAFArchive>();
 
+            // List of files that could not be installed
+            List<String> filesNotInstalled = new List<String>();
+
             foreach (String file in files)
             {
-                installFile(file, skinName);
+                // Try to install a specific file
+                String cleanPath = file.Substring((Application.StartupPath + @"\Skins\" + skinName).Length + 1);
+                if(!installFile(file, cleanPath, false))
+                {
+                    // File failed to install
+                    filesNotInstalled.Add(cleanPath);
+                }
             }
 
-            // Rebuild .raf files that were changed
+            // Rebuild any .raf files that were changed
             foreach (RAFArchive archive in usedRAFArchives)
             {
                 archive.SaveRAFFile();
             }
 
+            // Clear the list for re-use
+            usedRAFArchives.Clear();
+
             //
             //
-            // Fix this return
+            // Alert the user of any failed file installs
+            // Need to make a custom form for this. Just a simple un-editable text box with a scroll bar
             //
             //
-            return false;
+
+            // Update the database
+            database.ExecuteNonQuery("UPDATE skins SET DateInstalled=CURRENT_TIMESTAMP WHERE Name='" + skinName + "'");
+
+            return true;
         }
 
         enum FileType
@@ -866,11 +1022,8 @@ namespace SkinInstaller
             TextMod
         };
 
-        private bool installFile(String file, String skinName)
+        private bool installFile(String file, String cleanPath, bool ignoreBackup)
         {
-            // Chop off startup path and Skins/<Skin Name>)
-            String cleanPath = file.Substring((Application.StartupPath + @"\Skins\" + skinName).Length);
-
             // RAF file
             if (cleanPath.ToLower().Contains("raffiles"))
             {
@@ -881,14 +1034,28 @@ namespace SkinInstaller
                 if (entry == null)
                 {
                     String location = getFileLocation(file);
-                    fileHandler.FileMove(file, Application.StartupPath + @"\Skins\" + skinName + @"\" + location);
-                    file = Application.StartupPath + @"\Skins\" + skinName + @"\" + location;
+                    FileHandler.FileMove(file, file.Replace(cleanPath, "") + @"\" + location);
+                    file = file.Replace(cleanPath, "") + @"\" + location;
+                    cleanPath = location;
                     // Try again. If it fails, skip it
                     entry = rafFiles.GetFileEntry(location.Replace('\\', '/').Substring(9));
                     if (entry == null)
                         return false;
                 }
-                
+
+                // Backup
+                // Install will always backup
+                // Uninstall will always skip backup since it's actually installing *from* the backups
+                if (!ignoreBackup)
+                {
+                    if (!backupFile(cleanPath, FileType.RAF))
+                        return false;
+                }
+
+                // Replace
+                if (!entry.ReplaceContent(File.ReadAllBytes(file)))
+                    return false;
+
                 usedRAFArchives.Add(entry.RAFArchive);
 
                 return true;
@@ -896,25 +1063,50 @@ namespace SkinInstaller
             // Air file
             else if (cleanPath.ToLower().Contains("airfiles"))
             {
-                return false;
+                cleanPath = cleanPath.Substring(9); // Substring chops off 'AirFiles\'
+
+                // Backup
+                if (!backupFile(cleanPath, FileType.Air))
+                    return false;
+
+                // Replace
+                FileHandler.FileCopy(file, airFileLocation + "\\" + cleanPath);
+
+                return true;
             }
             // Text Mod
             else if (cleanPath.ToLower().Contains("textmods"))
             {
                 return false;
             }
-            // Try to reidentify and run again
+            // Try to re-identify and run again
             else
             {
                 return false;
             }
+
+            // Should never get here
+            return false;
         }
 
         private bool backupFile(String fileName, FileType fileType)
         {
+            String fullPath = String.Empty;
+
             switch (fileType)
             {
+                case FileType.Air:
+                    fullPath = Application.StartupPath + @"\Backups\Air\" + fileName;
+                    if (!File.Exists(fullPath))
+                        FileHandler.FileCopy(airFileLocation + "\\" + fileName, fullPath);
+                    break;
+
                 case FileType.RAF:
+                    fullPath = Application.StartupPath + @"\Backups\RAF\" + fileName.Replace("/", "\\");
+                    if (!File.Exists(fullPath))
+                        FileHandler.FileWriteAllBytes(fullPath, rafFiles.GetFileEntry(fileName).GetContent());
+                    break;
+                case FileType.TextMod:
 
                     break;
             }
@@ -923,6 +1115,55 @@ namespace SkinInstaller
 
         private bool uninstallSkin(String skinName)
         {
+            // Get the files to uninstall
+            String[] files = Directory.GetFiles(Application.StartupPath + @"\Skins\" + skinName, "*", SearchOption.AllDirectories);
+
+            // List of RAFArchives that are used so I know which .raf files to rebuild after injection
+            usedRAFArchives = new List<RAFArchive>();
+
+            // List of files whose backups could not be found or failed to uninstall
+            List<String> failedFiles = new List<String>();
+
+            foreach (String file in files)
+            {
+                // Try to find a backup for a file
+                String cleanPath = file.Substring((Application.StartupPath + @"\Skins\" + skinName).Length + 1);
+                String backupPath = Application.StartupPath + @"\Backups\" + cleanPath;
+
+                // Try to install the backup
+                if (File.Exists(backupPath))
+                {
+                    if (!installFile(file, cleanPath, true))
+                    {
+                        // File failed to install
+                        failedFiles.Add(cleanPath);
+                    }
+                }
+                else
+                {
+                    failedFiles.Add(cleanPath);
+                }
+            }
+
+            // Rebuild any .raf files that were changed
+            foreach (RAFArchive archive in usedRAFArchives)
+            {
+                archive.SaveRAFFile();
+            }
+
+            // Clear the list for re-use
+            usedRAFArchives.Clear();
+
+            //
+            //
+            // Alert the user of any failed files
+            // Need to make a custom form for this. Just a simple un-editable text box with a scroll bar
+            //
+            //
+
+            // Update the database
+            database.ExecuteNonQuery("UPDATE skins SET DateInstalled=NULL WHERE Name='" + skinName + "'");
+
             return true;
         }
 
@@ -932,6 +1173,37 @@ namespace SkinInstaller
         }
 
         #endregion // Installation
+
+        #region Helper functions
+
+        private void RunProgram(string fileName, string args, string workingDirectory, bool visible)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = fileName;
+            startInfo.WorkingDirectory = workingDirectory;
+            startInfo.Arguments = args;
+            startInfo.CreateNoWindow = !visible;
+            startInfo.WindowStyle = visible ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden;
+            try
+            {
+                using (Process process = Process.Start(startInfo))
+                {
+                    process.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return;
+            }
+        }
+
+        private void startLoLButton_Click(object sender, EventArgs e)
+        {
+            RunProgram(gameDirectory + "lol.launcher.exe", "", "", true);
+        }
+
+        #endregion // Helper functions
 
     }
 }
