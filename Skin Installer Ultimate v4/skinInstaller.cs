@@ -765,6 +765,11 @@ namespace SkinInstaller
             // Update the list view
             updateListView();
 
+            // Reset listBox
+            installFiles_ListBox.Items.Clear();
+            skinNameTextbox.Text = "";
+            authorNameTextbox.Text = "Unknown";
+
             // See if the user wants to install the skin right now
             int install = Properties.Settings.Default.installWhenAddingSkin;
             if (install == -1)
@@ -780,13 +785,12 @@ namespace SkinInstaller
             }
             if (install == 1)
             {
+
                 installSkin(skinNameTextbox.Text);
+                
             }
 
-            // Reset listBox
-            installFiles_ListBox.Items.Clear();
-            skinNameTextbox.Text = "";
-            authorNameTextbox.Text = "Unknown";
+            
 
             // Cleanup of temp folders
             FileHandler.DeleteFullDirectory(Application.StartupPath + @"\extractedFiles\");
@@ -1096,13 +1100,13 @@ namespace SkinInstaller
             switch (fileType)
             {
                 case FileType.Air:
-                    fullPath = Application.StartupPath + @"\Backups\Air\" + fileName;
+                    fullPath = Application.StartupPath + @"\Backups\AirFiles\" + fileName;
                     if (!File.Exists(fullPath))
                         FileHandler.FileCopy(airFileLocation + "\\" + fileName, fullPath);
                     break;
 
                 case FileType.RAF:
-                    fullPath = Application.StartupPath + @"\Backups\RAF\" + fileName.Replace("/", "\\");
+                    fullPath = Application.StartupPath + @"\Backups\RAFFiles\" + fileName.Replace("/", "\\");
                     if (!File.Exists(fullPath))
                         FileHandler.FileWriteAllBytes(fullPath, rafFiles.GetFileEntry(fileName).GetContent());
                     break;
